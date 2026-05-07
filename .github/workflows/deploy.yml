@@ -14,7 +14,6 @@ jobs:
 
       - name: Decode SSH key
         run: |
-          mkdir -p ~/.ssh
           echo '${{ secrets.SERVER_SSH_KEY }}' | base64 -d > /tmp/deploy_key.pem
           chmod 600 /tmp/deploy_key.pem
           ssh-keygen -l -f /tmp/deploy_key.pem
