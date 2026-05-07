@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light" data-lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataOS Ontology - 本体系统概览</title>
+
+    <style>
+    :root {
+      --color-aero-blue: #0066CC;
+      --color-pulse-cyan: #0099AA;
+      --color-signal-green: #00A383;
+      --color-warning-amber: #D97706;
+      --color-error-red: #DC2626;
+      --color-info-indigo: #4338CA;
+
+      --neutral-50: #F8FAFC;
+      --neutral-100: #F1F5F9;
+      --neutral-200: #E2E8F0;
+      --neutral-300: #CBD5E1;
+      --neutral-400: #94A3B8;
+      --neutral-500: #64748B;
+      --neutral-600: #475569;
+      --neutral-700: #334155;
+      --neutral-800: #1E293B;
+      --neutral-900: #0F172A;
+
+      --theme-primary: var(--color-aero-blue);
+      --theme-secondary: var(--color-pulse-cyan);
+      --theme-accent: var(--color-signal-green);
+      --theme-bg-base: #EFF6FF;
+      --text-primary: var(--neutral-900);
+      --text-secondary: var(--neutral-600);
+
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-glass: rgba(255, 255, 255, 0.98);
+      --bg-nav: rgba(255, 255, 255, 0.95);
+
+      --glass-border: 1px solid rgba(28, 102, 196, 0.15);
+      --glass-shadow: 0 8px 32px rgba(28, 102, 196, 0.08);
+      --glass-blur: 16px;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-hover: 0 12px 24px rgba(0, 132, 255, 0.2);
+      --glow-primary: 0 0 20px rgba(0, 102, 204, 0.2);
+
+      --font-body: "Noto Sans SC", "Source Han Sans CN", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "JetBrains Mono", "Source Code Pro", monospace;
+      --font-size-xs: 0.75rem;
+      --font-size-sm: 0.875rem;
+      --font-size-base: 1rem;
+      --font-size-lg: 1.25rem;
+      --font-size-xl: 1.5rem;
+      --font-size-2xl: 2rem;
+      --font-size-3xl: 2.5rem;
+
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 16px;
+      --spacing-lg: 24px;
+      --spacing-xl: 32px;
+      --spacing-2xl: 40px;
+
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --radius-full: 9999px;
+
+      --anim-duration-normal: 300ms;
+      --anim-ease-out: cubic-bezier(0.2, 0.0, 0, 1.0);
+    }
+
+    [data-theme="dark"] {
+      --theme-bg-base: #0B1120;
+      --text-primary: #F1F5F9;
+      --text-secondary: #94A3B8;
+      --bg-card: rgba(15, 23, 42, 0.85);
+      --bg-glass: rgba(15, 23, 42, 0.9);
+      --bg-nav: rgba(15, 23, 42, 0.9);
+      --glass-border: 1px solid rgba(100, 160, 255, 0.15);
+      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      --shadow-hover: 0 12px 24px rgba(0, 100, 200, 0.3);
+      --neutral-200: #1E293B;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { margin: 0; padding: 0; scroll-behavior: smooth; }
+    body {
+      margin: 0; padding: 0;
+      font-family: var(--font-body);
+      background: var(--theme-bg-base);
+      color: var(--text-primary);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color var(--anim-duration-normal) ease, color var(--anim-duration-normal) ease;
+    }
+
+    /* Language toggle: hide/show */
+    [data-lang="zh"] .en { display: none; }
+    [data-lang="en"] .zh { display: none; }
+
+    /* ---- Nav ---- */
+    .site-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--bg-nav);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border-bottom: var(--glass-border);
+      box-shadow: var(--shadow-sm);
+      padding: var(--spacing-md) var(--spacing-xl);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { font-weight: 700; font-size: var(--font-size-lg); color: var(--theme-primary); text-decoration: none; }
+    .nav-brand span { background: linear-gradient(135deg, var(--color-aero-blue), var(--color-pulse-cyan), var(--color-signal-green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-actions { display: flex; gap: var(--spacing-sm); align-items: center; }
+    .nav-btn {
+      background: none; border: var(--glass-border); border-radius: var(--radius-full);
+      height: 34px; padding: 0 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;
+      color: var(--text-secondary); font-size: var(--font-size-sm); font-family: var(--font-body); font-weight: 500;
+      transition: all var(--anim-duration-normal) ease;
+    }
+    .nav-btn:hover { border-color: var(--theme-primary); color: var(--theme-primary); }
+    .nav-btn svg { flex-shrink: 0; }
+
+    /* ---- Hero ---- */
+    .hero {
+      position: relative; overflow: hidden;
+      padding: 6rem 1rem 4rem; text-align: center;
+      background: linear-gradient(160deg, var(--theme-bg-base) 0%, rgba(0,102,204,.06) 50%, rgba(0,153,170,.04) 100%);
+    }
+    .hero::before { content:''; position:absolute; top:-40%; right:-20%; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle,rgba(0,102,204,.08) 0%,transparent 70%); pointer-events:none; }
+    .hero::after { content:''; position:absolute; bottom:-30%; left:-15%; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle,rgba(0,153,170,.06) 0%,transparent 70%); pointer-events:none; }
+    .hero-content { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+    .hero h1 { font-size: var(--font-size-3xl); font-weight: 700; margin-bottom: var(--spacing-md); line-height: 1.3; }
+    .gradient-text { background: linear-gradient(135deg, var(--color-aero-blue), var(--color-pulse-cyan), var(--color-signal-green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero p { font-size: var(--font-size-lg); color: var(--text-secondary); max-width: 600px; margin: 0 auto var(--spacing-xl); }
+    .hero-stats { display: flex; justify-content: center; gap: var(--spacing-xl); margin-top: var(--spacing-xl); }
+    .hero-stat { text-align: center; }
+    .hero-stat .value { font-size: var(--font-size-2xl); font-weight: 700; color: var(--theme-primary); }
+    .hero-stat .label { font-size: var(--font-size-sm); color: var(--text-secondary); }
+    .hero-divider { width: 1px; background: var(--neutral-200); }
+
+    /* ---- Container ---- */
+    .container { max-width: 1060px; margin: 0 auto; padding: var(--spacing-2xl) var(--spacing-lg); position: relative; }
+
+    /* ---- Section Header ---- */
+    .section-header { text-align: center; margin-bottom: var(--spacing-xl); }
+    .section-badge {
+      display: inline-flex; align-items: center; gap: var(--spacing-sm);
+      background: rgba(0,102,204,.08); border: 1px solid rgba(0,102,204,.15);
+      border-radius: var(--radius-full); padding: var(--spacing-xs) var(--spacing-md);
+      font-size: var(--font-size-sm); font-weight: 600; color: var(--theme-primary);
+      margin-bottom: var(--spacing-md);
+    }
+    .section-title { font-size: var(--font-size-xl); font-weight: 700; margin: 0 0 var(--spacing-sm); }
+    .section-desc { color: var(--text-secondary); font-size: var(--font-size-base); max-width: 600px; margin: 0 auto; }
+
+    /* ---- Glass Card ---- */
+    .glass-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
+      border: var(--glass-border); border-radius: var(--radius-xl);
+      padding: var(--spacing-lg); box-shadow: var(--glass-shadow);
+      transition: transform var(--anim-duration-normal) var(--anim-ease-out), box-shadow var(--anim-duration-normal) var(--anim-ease-out);
+    }
+    .glass-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .icon-circle { width:48px; height:48px; border-radius:var(--radius-lg); display:flex; align-items:center; justify-content:center; margin-bottom:var(--spacing-md); color:#fff; flex-shrink:0; }
+    .glass-card h3 { font-size: var(--font-size-lg); font-weight: 600; margin: 0 0 var(--spacing-sm); }
+    .glass-card p, .glass-card li { font-size: var(--font-size-sm); color: var(--text-secondary); line-height: 1.6; }
+    .glass-card p { margin: 0; }
+    .example-block {
+      background: rgba(0,102,204,.04); border: 1px solid rgba(0,102,204,.1);
+      border-radius: var(--radius-md); padding: var(--spacing-sm) var(--spacing-md);
+      margin-top: var(--spacing-md); font-size: var(--font-size-sm); color: var(--text-secondary);
+    }
+    .example-block strong { color: var(--theme-primary); }
+
+    /* Grid */
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--spacing-lg); }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--spacing-lg); }
+
+    /* Badge pill */
+    .badge-pill { display:inline-block; font-size:var(--font-size-xs); font-weight:600; padding:2px 10px; border-radius:var(--radius-full); color:#fff; margin-bottom:var(--spacing-sm); font-family:var(--font-mono); }
+    .bg-aero { background:var(--color-aero-blue); } .bg-cyan { background:var(--color-pulse-cyan); } .bg-green { background:var(--color-signal-green); }
+    .bg-amber { background:var(--color-warning-amber); } .bg-indigo { background:var(--color-info-indigo); } .bg-red { background:var(--color-error-red); }
+
+    /* ---- Table ---- */
+    .table-wrap { background:var(--bg-card); border:var(--glass-border); border-radius:var(--radius-xl); overflow:hidden; box-shadow:var(--glass-shadow); margin-bottom:var(--spacing-lg); }
+    table { width:100%; border-collapse:collapse; }
+    th { background:linear-gradient(135deg,var(--neutral-800),var(--neutral-900)); color:#fff; text-align:left; padding:var(--spacing-md); font-size:var(--font-size-sm); font-weight:600; }
+    td { padding:var(--spacing-sm) var(--spacing-md); border-bottom:1px solid var(--neutral-200); font-size:var(--font-size-sm); color:var(--text-secondary); }
+    td strong { color:var(--theme-primary); font-family:var(--font-mono); }
+    tr:last-child td { border-bottom:none; }
+    code { font-family:var(--font-mono); background:rgba(0,102,204,.06); border:1px solid rgba(0,102,204,.1); padding:1px 6px; border-radius:var(--radius-sm); font-size:var(--font-size-xs); color:var(--theme-primary); }
+
+    /* ---- Diagram ---- */
+    .diagram-card { background:var(--bg-card); border:var(--glass-border); border-radius:var(--radius-xl); padding:var(--spacing-xl); box-shadow:var(--glass-shadow); overflow-x:auto; }
+    .diagram-card svg { display:block; margin:0 auto; }
+
+    /* ---- Pipeline ---- */
+    .pipeline { display:flex; align-items:center; gap:var(--spacing-sm); flex-wrap:wrap; justify-content:center; margin:var(--spacing-xl) 0; }
+    .stage-card { background:var(--bg-card); border:2px solid rgba(0,102,204,.25); border-radius:var(--radius-lg); padding:var(--spacing-md) var(--spacing-lg); text-align:center; min-width:120px; font-weight:600; transition:all var(--anim-duration-normal) ease; }
+    .stage-card:hover { border-color:var(--theme-primary); box-shadow:var(--glow-primary); }
+    .stage-card small { display:block; font-weight:400; font-size:var(--font-size-xs); color:var(--text-secondary); margin-top:2px; }
+    .stage-card.active { border-color:var(--color-signal-green); }
+    .pipeline-arrow { font-size:1.4rem; color:var(--theme-primary); }
+
+    /* ---- Walkthrough ---- */
+    .walkthrough { background:linear-gradient(135deg,rgba(0,102,204,.06),rgba(0,153,170,.04)); border:var(--glass-border); border-radius:var(--radius-xl); padding:var(--spacing-xl); box-shadow:var(--glass-shadow); }
+    .walkthrough h3 { font-size:var(--font-size-lg); font-weight:600; margin:0 0 var(--spacing-md); }
+    .walkthrough ol, .walkthrough ul { margin:0; padding-left:var(--spacing-lg); }
+    .walkthrough li { padding:var(--spacing-xs) 0; font-size:var(--font-size-sm); color:var(--text-secondary); line-height:1.8; }
+    .walkthrough li strong { color:var(--text-primary); }
+
+    /* ---- Phase Steps ---- */
+    .phase-step {
+      display: flex; gap: var(--spacing-md); align-items: flex-start;
+      padding: var(--spacing-md) 0;
+      border-bottom: 1px solid var(--neutral-200);
+    }
+    .phase-step:last-child { border-bottom: none; }
+    .phase-num {
+      flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-aero-blue), var(--color-pulse-cyan));
+      color: #fff; font-weight: 700; font-size: var(--font-size-sm);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .phase-body h4 { margin: 0 0 4px; font-size: var(--font-size-base); font-weight: 600; }
+    .phase-body p { margin: 0; font-size: var(--font-size-sm); color: var(--text-secondary); line-height: 1.6; }
+    .phase-body .detail-list { margin: var(--spacing-sm) 0 0; padding-left: var(--spacing-lg); }
+    .phase-body .detail-list li { font-size: var(--font-size-sm); color: var(--text-secondary); line-height: 1.7; padding: 2px 0; }
+
+    /* ---- Airport Model Showcase ---- */
+    .model-showcase { display: grid; grid-template-columns: 1fr; gap: var(--spacing-lg); }
+    .model-group { background: var(--bg-card); border: var(--glass-border); border-radius: var(--radius-xl); padding: var(--spacing-lg); box-shadow: var(--glass-shadow); }
+    .model-group h4 { margin: 0 0 var(--spacing-md); font-size: var(--font-size-base); font-weight: 600; display: flex; align-items: center; gap: var(--spacing-sm); }
+    .model-group h4 .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .model-item { background: rgba(0,102,204,.03); border: 1px solid rgba(0,102,204,.08); border-radius: var(--radius-md); padding: var(--spacing-sm) var(--spacing-md); margin-bottom: var(--spacing-sm); }
+    .model-item:last-child { margin-bottom: 0; }
+    .model-item .name { font-weight: 600; font-size: var(--font-size-sm); color: var(--text-primary); }
+    .model-item .meta { font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 2px; }
+    .model-item code { font-size: 0.7rem; }
+
+    /* ---- Footer ---- */
+    .site-footer { text-align:center; padding:var(--spacing-xl) var(--spacing-lg); color:var(--text-secondary); font-size:var(--font-size-sm); border-top:var(--glass-border); }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: var(--font-size-2xl); }
+      .hero-stats { gap: var(--spacing-md); }
+      .hero-stat .value { font-size: var(--font-size-xl); }
+      .nav-brand { font-size: var(--font-size-base); }
+    }
+
+    /* ---- Audio Player Bar ---- */
+    .audio-player {
+      position: fixed; left: 0; right: 0; z-index: 99;
+      background: var(--bg-nav);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border-bottom: var(--glass-border);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      display: flex; align-items: center; gap: var(--spacing-sm);
+      padding: var(--spacing-xs) var(--spacing-xl);
+      height: 36px;
+    }
+    .audio-play-btn {
+      background: linear-gradient(135deg, var(--color-aero-blue), var(--color-pulse-cyan));
+      border: none; border-radius: var(--radius-full);
+      width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;
+      color: #fff; cursor: pointer; flex-shrink: 0;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .audio-play-btn:hover { transform: scale(1.1); box-shadow: var(--glow-primary); }
+    .audio-progress-wrap {
+      flex: 1; height: 4px; background: var(--neutral-200); border-radius: var(--radius-full);
+      cursor: pointer; position: relative; overflow: hidden;
+    }
+    .audio-progress-bar {
+      height: 100%; width: 0%; border-radius: var(--radius-full);
+      background: linear-gradient(90deg, var(--color-aero-blue), var(--color-pulse-cyan), var(--color-signal-green));
+      transition: width 0.1s linear;
+    }
+    .audio-time {
+      font-size: var(--font-size-xs); color: var(--text-secondary);
+      font-family: var(--font-mono); white-space: nowrap; min-width: 80px; text-align: center;
+    }
+    .audio-label {
+      font-size: var(--font-size-xs); color: var(--theme-primary); font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ---- Section Highlighting ---- */
+    .section-active {
+      outline: 2px solid var(--color-pulse-cyan);
+      outline-offset: -2px;
+      border-radius: var(--radius-lg);
+      box-shadow: inset 4px 0 0 var(--color-pulse-cyan), 0 0 20px rgba(0,153,170,0.10);
+      transition: outline-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .section-active.hero {
+      outline-offset: 0;
+      box-shadow: 0 0 24px rgba(0,153,170,0.10);
+    }
+    </style>
+</head>
+<body>
+
+    <!-- ============ Nav ============ -->
+    <nav class="site-nav">
+        <a class="nav-brand" href="#"><span>DataOS</span> Ontology</a>
+        <div class="nav-actions">
+            <button class="nav-btn" id="langToggle" title="Switch language">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
+                <span class="zh">EN</span><span class="en">ZH</span>
+            </button>
+            <button class="nav-btn" id="themeToggle" title="Toggle theme">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============ Audio Player Bar ============ -->
+    <div class="audio-player" id="audioPlayer">
+        <button class="audio-play-btn" id="playBtn" title="Play / Pause">
+            <svg id="playIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <svg id="pauseIcon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>
+        </button>
+        <div class="audio-progress-wrap" id="progressWrap">
+            <div class="audio-progress-bar" id="progressBar"></div>
+        </div>
+        <span class="audio-time" id="audioTime">0:00 / 0:00</span>
+        <span class="audio-label"><span class="zh">语音导览</span><span class="en">Audio Guide</span></span>
+    </div>
+    <audio id="narrationAudio" preload="auto">
+        <source src="audio_narration.mp3" type="audio/mpeg"/>
+        <source src="audio_narration.wav" type="audio/wav"/>
+    </audio>
+
+    <!-- ============ Hero ============ -->
+    <section class="hero" id="sec-hero">
+        <div class="hero-content">
+            <h1>
+                <span class="zh">DataOS (灵枢)<br/><span class="gradient-text">本体系统概览</span></span>
+                <span class="en">DataOS (LingShu)<br/><span class="gradient-text">Ontology System</span></span>
+            </h1>
+            <p>
+                <span class="zh">基于图模型的核心数据架构，定义整个业务领域的对象类型、属性、关系与动作。</span>
+                <span class="en">A graph-based data model that defines the shape of your entire business domain &mdash; objects, properties, relationships, and actions.</span>
+            </p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="value">6</div>
+                    <div class="label"><span class="zh">实体类型</span><span class="en">Entity Types</span></div>
+                </div>
+                <div class="hero-divider"></div>
+                <div class="hero-stat">
+                    <div class="value">7</div>
+                    <div class="label"><span class="zh">边类型</span><span class="en">Edge Types</span></div>
+                </div>
+                <div class="hero-divider"></div>
+                <div class="hero-stat">
+                    <div class="value">7</div>
+                    <div class="label"><span class="zh">建模阶段</span><span class="en">Modeling Phases</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ Design Philosophy ============ -->
+    <div class="container" id="sec-philosophy">
+        <div class="section-header">
+            <div class="section-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                <span class="zh">设计哲学</span><span class="en">Design Philosophy</span>
+            </div>
+            <h2 class="section-title"><span class="zh">三大核心原则</span><span class="en">Three Core Principles</span></h2>
+            <p class="section-desc"><span class="zh">Ontology 架构的底层设计理念</span><span class="en">The foundational ideas behind the Ontology architecture</span></p>
+        </div>
+
+        <div class="grid-3">
+            <div class="glass-card">
+                <div class="icon-circle bg-aero">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><path d="M10 17h4M12 14v6"/></svg>
+                </div>
+                <h3><span class="zh">定义与实例分离</span><span class="en">Definition vs Instance</span></h3>
+                <p>
+                    <span class="zh">Ontology 定义数据的<strong>形状</strong>（Schema），实例承载实际<strong>内容</strong>（Data）。两者独立存储、独立版本化。</span>
+                    <span class="en">Ontology defines the <strong>shape</strong> (schema) of data. Instances hold the actual <strong>content</strong>. They are stored and versioned independently.</span>
+                </p>
+            </div>
+            <div class="glass-card">
+                <div class="icon-circle bg-cyan">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                </div>
+                <h3><span class="zh">逻辑与物理分离</span><span class="en">Logical vs Physical</span></h3>
+                <p>
+                    <span class="zh">业务概念（如"航班"、"登机口"）存在于逻辑模型中，物理存储位置（Iceberg、PostgreSQL）通过 <strong>AssetMapping</strong> 独立配置。</span>
+                    <span class="en">Business concepts (e.g. "Flight", "Gate") live in the logical model. Physical storage (Iceberg, PostgreSQL) is configured separately via <strong>AssetMapping</strong>.</span>
+                </p>
+            </div>
+            <div class="glass-card">
+                <div class="icon-circle bg-green">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><circle cx="18" cy="6" r="3"/><path d="M8.6 7.4L15.4 16.6M8.6 4.6L15.4 4.6"/></svg>
+                </div>
+                <h3><span class="zh">图模型思维</span><span class="en">Graph Thinking</span></h3>
+                <p>
+                    <span class="zh">所有实体都是图中的<strong>节点</strong>，实体间的关联都是<strong>边</strong>，支持级联更新、依赖校验与影响分析。</span>
+                    <span class="en">Every entity is a <strong>node</strong>. Every relationship is an <strong>edge</strong>. This enables cascading updates, dependency checks, and impact analysis.</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ 6 Entity Types ============ -->
+    <div class="container" id="sec-entities">
+        <div class="section-header">
+            <div class="section-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 11h6M9 15h6"/></svg>
+                <span class="zh">核心构件</span><span class="en">Core Building Blocks</span>
+            </div>
+            <h2 class="section-title"><span class="zh">六大实体类型</span><span class="en">The 6 Entity Types</span></h2>
+            <p class="section-desc"><span class="zh">每个 Ontology 都由以下六种定义组成</span><span class="en">Every Ontology is composed of these six types of definitions</span></p>
+        </div>
+
+        <div class="grid-3">
+            <div class="glass-card">
+                <span class="badge-pill bg-aero">ri.shprop.*</span>
+                <h3>SharedPropertyType</h3>
+                <p>
+                    <span class="zh">全局可复用的<strong>属性模板</strong>。定义数据类型、校验规则、UI 组件与合规要求。被多个 ObjectType 共享使用。</span>
+                    <span class="en">A <strong>reusable property template</strong> shared across multiple object types. Defines data type, validation, UI widget, and compliance.</span>
+                </p>
+                <div class="example-block">
+                    <span class="zh"><strong>机场示例：</strong>共享属性 <code>iata_code</code> (STRING) 被 Airport、Airline 等多个对象复用。</span>
+                    <span class="en"><strong>Airport example:</strong> Shared <code>iata_code</code> (STRING) reused by Airport, Airline, and other objects.</span>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <span class="badge-pill bg-cyan">ri.prop.*</span>
+                <h3>PropertyType</h3>
+                <p>
+                    <span class="zh">依附于特定 ObjectType 或 LinkType 的<strong>具体属性</strong>。可继承 SharedPropertyType，支持物理列或虚拟表达式。</span>
+                    <span class="en">A <strong>concrete property</strong> belonging to a specific ObjectType or LinkType. Can inherit from a SharedPropertyType.</span>
+                </p>
+                <div class="example-block">
+                    <span class="zh"><strong>机场示例：</strong>Flight 对象上的 <code>flight_iata_code</code>，继承自共享的 <code>iata_code</code>。</span>
+                    <span class="en"><strong>Airport example:</strong> <code>flight_iata_code</code> on Flight object, inheriting from shared <code>iata_code</code>.</span>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <span class="badge-pill bg-green">ri.iface.*</span>
+                <h3>InterfaceType</h3>
+                <p>
+                    <span class="zh">定义<strong>契约</strong>，规定实现者必须满足的属性与关系要求。支持接口继承。分为对象接口与关系接口两种。</span>
+                    <span class="en">A <strong>contract</strong> defining required properties and links. Supports interface inheritance. Comes in Object Interface &amp; Link Interface.</span>
+                </p>
+                <div class="example-block">
+                    <span class="zh"><strong>机场示例：</strong><code>schedulable</code> 接口要求实现者必须包含 <code>scheduled_time</code> 和 <code>actual_time</code> 属性。</span>
+                    <span class="en"><strong>Airport example:</strong> <code>schedulable</code> interface requires <code>scheduled_time</code> and <code>actual_time</code> properties.</span>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <span class="badge-pill bg-amber">ri.obj.*</span>
+                <h3>ObjectType</h3>
+                <p>
+                    <span class="zh">定义<strong>业务对象</strong>。包含属性集合、实现接口、指定主键，通过 AssetMapping 映射到物理存储。</span>
+                    <span class="en">Defines a <strong>business object</strong>. Contains properties, implements interfaces, specifies primary keys, maps to storage.</span>
+                </p>
+                <div class="example-block">
+                    <span class="zh"><strong>机场示例：</strong><code>Flight</code> 对象，包含航班号、出发时间、状态等属性。</span>
+                    <span class="en"><strong>Airport example:</strong> <code>Flight</code> object with flight number, departure time, status, etc.</span>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <span class="badge-pill bg-indigo">ri.link.*</span>
+                <h3>LinkType</h3>
+                <p>
+                    <span class="zh">定义对象之间的<strong>关系</strong>。有源/目标端点、基数（1:1、1:N、M:N），可以携带自身属性。</span>
+                    <span class="en">Defines a <strong>relationship</strong> between objects. Has source/target endpoints, cardinality (1:1, 1:N, M:N), and can carry properties.</span>
+                </p>
+                <div class="example-block">
+                    <span class="zh"><strong>机场示例：</strong><code>flight_assigned_to_gate</code> 将 Flight 连接到 Gate（1:N），携带 <code>assigned_time</code> 属性。</span>
+                    <span class="en"><strong>Airport example:</strong> <code>flight_assigned_to_gate</code> links Flight to Gate (1:N), with <code>assigned_time</code> property.</span>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <span class="badge-pill bg-red">ri.action.*</span>
+                <h3>ActionType</h3>
+                <p>
+                    <span class="zh">定义可执行的<strong>操作</strong>。指定参数、执行引擎（CRUD、Python、SQL、Webhook）、安全级别与副作用。</span>
+                    <span class="en">Defines an <strong>operation</strong>. Specifies parameters, execution engine (CRUD, Python, SQL, Webhook), safety level, and side effects.</span>
+                </p>
+                <div class="example-block">
+                    <span class="zh"><strong>机场示例：</strong><code>delay_flight</code> 操作，接收 Flight 实例和新时间，安全级别为非幂等。</span>
+                    <span class="en"><strong>Airport example:</strong> <code>delay_flight</code> action takes a Flight instance and new time, safety level: non-idempotent.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ 7 Edge Types ============ -->
+    <div class="container" id="sec-edges">
+        <div class="section-header">
+            <div class="section-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                <span class="zh">关系图谱</span><span class="en">Relationships</span>
+            </div>
+            <h2 class="section-title"><span class="zh">七种边类型</span><span class="en">7 Edge Types</span></h2>
+            <p class="section-desc"><span class="zh">将实体类型连接为完整图谱的七种关系</span><span class="en">The edges that bind entity types into a coherent graph</span></p>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th><span class="zh">边类型</span><span class="en">Edge</span></th>
+                        <th><span class="zh">起点</span><span class="en">From</span></th>
+                        <th><span class="zh">终点</span><span class="en">To</span></th>
+                        <th><span class="zh">含义</span><span class="en">Meaning</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>BASED_ON</strong></td><td>PropertyType</td><td>SharedPropertyType</td><td><span class="zh">继承模板定义</span><span class="en">Inherits template definition</span></td></tr>
+                    <tr><td><strong>BELONGS_TO</strong></td><td>PropertyType</td><td>ObjectType / LinkType</td><td><span class="zh">属性从属于实体</span><span class="en">Property is owned by this entity</span></td></tr>
+                    <tr><td><strong>REQUIRES</strong></td><td>InterfaceType</td><td>SharedPropertyType</td><td><span class="zh">实现者必须包含此属性</span><span class="en">Implementers must include this property</span></td></tr>
+                    <tr><td><strong>IMPLEMENTS</strong></td><td>Object / LinkType</td><td>InterfaceType</td><td><span class="zh">满足接口契约</span><span class="en">Fulfills the interface contract</span></td></tr>
+                    <tr><td><strong>EXTENDS</strong></td><td>InterfaceType</td><td>InterfaceType</td><td><span class="zh">继承父接口要求</span><span class="en">Inherits parent interface requirements</span></td></tr>
+                    <tr><td><strong>CONNECTS</strong></td><td>LinkType</td><td>ObjectType</td><td><span class="zh">定义关系端点</span><span class="en">Defines source/target endpoints</span></td></tr>
+                    <tr><td><strong>OPERATES_ON</strong></td><td>ActionType</td><td>Object / Link / Interface</td><td><span class="zh">动作操作目标</span><span class="en">Action targets this entity</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="diagram-card">
+            <svg viewBox="0 0 700 420" width="700" height="420" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
+                <defs>
+                    <marker id="ah" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#94A3B8"/></marker>
+                </defs>
+                <rect x="260" y="20" width="180" height="40" rx="10" fill="#0066CC"/><text x="350" y="40" font-size="12" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">SharedPropertyType</text>
+                <rect x="260" y="120" width="180" height="40" rx="10" fill="#0099AA"/><text x="350" y="140" font-size="13" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">PropertyType</text>
+                <rect x="20" y="220" width="160" height="40" rx="10" fill="#00A383"/><text x="100" y="240" font-size="13" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">InterfaceType</text>
+                <rect x="270" y="220" width="160" height="40" rx="10" fill="#D97706"/><text x="350" y="240" font-size="13" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">ObjectType</text>
+                <rect x="520" y="220" width="160" height="40" rx="10" fill="#4338CA"/><text x="600" y="240" font-size="13" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">LinkType</text>
+                <rect x="270" y="350" width="160" height="40" rx="10" fill="#DC2626"/><text x="350" y="370" font-size="13" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">ActionType</text>
+
+                <line x1="350" y1="120" x2="350" y2="64" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#ah)" stroke-dasharray="5,3"/>
+                <text x="385" y="95" font-size="10" fill="#64748B" text-anchor="middle">BASED_ON</text>
+                <line x1="330" y1="160" x2="340" y2="216" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#ah)" stroke-dasharray="5,3"/>
+                <text x="300" y="192" font-size="10" fill="#64748B" text-anchor="middle">BELONGS_TO</text>
+                <line x1="440" y1="150" x2="560" y2="218" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#ah)" stroke-dasharray="5,3"/>
+                <line x1="120" y1="220" x2="262" y2="62" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#ah)" stroke-dasharray="5,3"/>
+                <text x="165" y="135" font-size="10" fill="#64748B" text-anchor="middle">REQUIRES</text>
+                <line x1="270" y1="235" x2="184" y2="235" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#ah)" stroke-dasharray="5,3"/>
+                <text x="227" y="226" font-size="10" fill="#64748B" text-anchor="middle">IMPLEMENTS</text>
+                <line x1="520" y1="250" x2="184" y2="250" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#ah)" stroke-dasharray="5,3"/>
+                <path d="M 20 230 C -30 230, -30 260, 20 255" fill="none" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#ah)" stroke-dasharray="5,3"/>
+                <text x="-2" y="270" font-size="10" fill="#64748B" text-anchor="middle">EXTENDS</text>
+                <line x1="520" y1="232" x2="434" y2="232" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#ah)" stroke-dasharray="5,3"/>
+                <text x="477" y="222" font-size="10" fill="#64748B" text-anchor="middle">CONNECTS</text>
+                <line x1="330" y1="350" x2="340" y2="264" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#ah)" stroke-dasharray="5,3"/>
+                <text x="290" y="310" font-size="10" fill="#64748B" text-anchor="middle">OPERATES_ON</text>
+                <line x1="430" y1="365" x2="555" y2="264" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#ah)" stroke-dasharray="5,3"/>
+                <line x1="270" y1="375" x2="140" y2="264" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#ah)" stroke-dasharray="5,3"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- ============ Version Lifecycle ============ -->
+    <div class="container" id="sec-lifecycle">
+        <div class="section-header">
+            <div class="section-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 105.64-11.36L1 10"/></svg>
+                <span class="zh">版本生命周期</span><span class="en">Version Lifecycle</span>
+            </div>
+            <h2 class="section-title"><span class="zh">四阶段发布流水线</span><span class="en">Four-Stage Pipeline</span></h2>
+            <p class="section-desc"><span class="zh">每次 Ontology 变更都需经过四个阶段才能生效</span><span class="en">Every ontology change goes through four stages before becoming active</span></p>
+        </div>
+
+        <div class="pipeline">
+            <div class="stage-card">Draft<small><span class="zh">自由编辑</span><span class="en">Edit freely</span></small></div>
+            <span class="pipeline-arrow">&rarr;</span>
+            <div class="stage-card">Staging<small><span class="zh">校验与审查</span><span class="en">Validate &amp; review</span></small></div>
+            <span class="pipeline-arrow">&rarr;</span>
+            <div class="stage-card">Snapshot<small><span class="zh">不可变快照</span><span class="en">Immutable record</span></small></div>
+            <span class="pipeline-arrow">&rarr;</span>
+            <div class="stage-card active">Active<small><span class="zh">生产生效</span><span class="en">Live in production</span></small></div>
+        </div>
+    </div>
+
+    <!-- ============ 7-Phase Methodology ============ -->
+    <div class="container" id="sec-methodology">
+        <div class="section-header">
+            <div class="section-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+                <span class="zh">建模方法论</span><span class="en">Modeling Methodology</span>
+            </div>
+            <h2 class="section-title"><span class="zh">七阶段建模流程</span><span class="en">7-Phase Modeling Process</span></h2>
+            <p class="section-desc"><span class="zh">从数据库 Schema 到完整 Ontology 的标准化路径</span><span class="en">A standardized path from database schema to a complete Ontology</span></p>
+        </div>
+
+        <div class="glass-card" style="padding:var(--spacing-lg) var(--spacing-xl);">
+            <div class="phase-step">
+                <div class="phase-num">1</div>
+                <div class="phase-body">
+                    <h4><span class="zh">源头发现 (Source Discovery)</span><span class="en">Source Discovery</span></h4>
+                    <p><span class="zh">连接数据库或读取 DDL 文件，盘点所有表和 Schema，评估复杂度。可选地读取 PDF 业务文档获取领域上下文。</span><span class="en">Connect to the database or read DDL files. Inventory all tables and schemas, assess complexity. Optionally read PDF business documents for domain context.</span></p>
+                </div>
+            </div>
+            <div class="phase-step">
+                <div class="phase-num">2</div>
+                <div class="phase-body">
+                    <h4><span class="zh">Schema 提取 (Schema Extraction)</span><span class="en">Schema Extraction</span></h4>
+                    <p><span class="zh">提取每张表的列定义、主键、外键、唯一约束和 CHECK 约束。输出结构化摘要供人工确认。</span><span class="en">Extract column definitions, primary keys, foreign keys, unique constraints, and CHECK constraints for every table. Output a structured summary for review.</span></p>
+                </div>
+            </div>
+            <div class="phase-step">
+                <div class="phase-num">3</div>
+                <div class="phase-body">
+                    <h4><span class="zh">实体分类 (Entity Classification)</span><span class="en">Entity Classification</span></h4>
+                    <p><span class="zh">将每张表分类为 ObjectType（业务实体）、LinkType（关联关系表）或 Skip（系统表）。</span><span class="en">Classify each table as ObjectType (business entity), LinkType (junction/relationship table), or Skip (system table).</span></p>
+                    <ul class="detail-list">
+                        <li><span class="zh"><strong>ObjectType</strong>：有自己的主键、代表业务实体、有实质性非 FK 列</span><span class="en"><strong>ObjectType</strong>: has own PK, represents a business entity, has substantive non-FK columns</span></li>
+                        <li><span class="zh"><strong>LinkType</strong>：两个 FK 列组成主键的关联表，非 FK 列 &le; 3</span><span class="en"><strong>LinkType</strong>: junction table with 2 FK columns as PK, &le; 3 non-FK columns</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="phase-step">
+                <div class="phase-num">4</div>
+                <div class="phase-body">
+                    <h4><span class="zh">共享属性与接口推断 (SharedPropertyType &amp; InterfaceType Inference)</span><span class="en">SharedPropertyType &amp; InterfaceType Inference</span></h4>
+                    <p><span class="zh">扫描所有实体，发现在 3+ 张表中出现的同名同类型列，提炼为 SharedPropertyType。将相关的共享属性组合为 InterfaceType（如 <code>auditable</code>、<code>locatable</code>）。</span><span class="en">Scan all entities for columns appearing in 3+ tables with the same name and type. Extract them as SharedPropertyTypes. Group related ones into InterfaceTypes (e.g. <code>auditable</code>, <code>locatable</code>).</span></p>
+                </div>
+            </div>
+            <div class="phase-step">
+                <div class="phase-num">5</div>
+                <div class="phase-body">
+                    <h4><span class="zh">命名与 RID 生成 (Naming &amp; RID Generation)</span><span class="en">Naming &amp; RID Generation</span></h4>
+                    <p><span class="zh">按 snake_case 规范生成 api_name，按 <code>ri.{prefix}.{uuid}</code> 格式生成全局唯一 RID，结合业务文档生成 display_name。</span><span class="en">Generate api_name in snake_case, create globally unique RIDs as <code>ri.{prefix}.{uuid}</code>, derive display_name from business glossary.</span></p>
+                </div>
+            </div>
+            <div class="phase-step">
+                <div class="phase-num">6</div>
+                <div class="phase-body">
+                    <h4><span class="zh">详细映射 (Detailed Mapping)</span><span class="en">Detailed Mapping</span></h4>
+                    <p><span class="zh">将 SQL 类型映射到 Proto DataType，推断校验规则（NOT NULL → NotNullRule、CHECK → RangeRule/EnumRule）、UI Widget 和合规配置。配置 AssetMapping 和主键。</span><span class="en">Map SQL types to Proto DataType, infer validation rules (NOT NULL, CHECK constraints), UI widgets, and compliance config. Configure AssetMapping and primary keys.</span></p>
+                </div>
+            </div>
+            <div class="phase-step">
+                <div class="phase-num">7</div>
+                <div class="phase-body">
+                    <h4><span class="zh">JSON 生成与校验 (JSON Generation &amp; Validation)</span><span class="en">JSON Generation &amp; Validation</span></h4>
+                    <p><span class="zh">输出符合 Proto3 JSON 序列化规范的 <code>OntologyRegistry</code> 文件。运行 8 项交叉引用校验，确保所有 RID 引用、api_name 规范、接口契约都正确无误。</span><span class="en">Output a Proto3-compliant <code>OntologyRegistry</code> JSON file. Run 8 cross-reference validation checks ensuring all RID references, api_name rules, and interface contracts are correct.</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ Airport Example ============ -->
+    <div class="container" id="sec-airport">
+        <div class="section-header">
+            <div class="section-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.4-.1.9.3 1.1l5.4 3.2L6 14.6 3.8 14c-.3-.1-.7 0-.9.2l-.2.3c-.2.3-.1.7.1.9l3 2.8 2.8 3c.3.3.7.3.9.1l.3-.2c.3-.2.3-.5.2-.9l-.6-2.2L12.5 15l3.2 5.4c.2.4.7.5 1.1.3l.5-.3c.4-.2.6-.6.5-1.1z"/></svg>
+                <span class="zh">实战案例：机场运营</span><span class="en">Case Study: Airport Operations</span>
+            </div>
+            <h2 class="section-title"><span class="zh">机场 Ontology 建模全流程</span><span class="en">Airport Ontology &mdash; Full Walkthrough</span></h2>
+            <p class="section-desc"><span class="zh">以一个机场运营系统为例，演示从数据库表到完整 Ontology 的建模过程</span><span class="en">Using an airport operations system as an example, demonstrating the full modeling process from database tables to a complete Ontology</span></p>
+        </div>
+
+        <!-- Step 1: Source tables -->
+        <div class="walkthrough" style="margin-bottom:var(--spacing-lg);">
+            <h3><span class="zh">假设：现有数据库表</span><span class="en">Given: Existing Database Tables</span></h3>
+            <p style="font-size:var(--font-size-sm);color:var(--text-secondary);margin-bottom:var(--spacing-md);">
+                <span class="zh">机场运营系统包含以下核心表：</span>
+                <span class="en">The airport operations system contains these core tables:</span>
+            </p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--spacing-sm);">
+                <div class="model-item"><div class="name">airports</div><div class="meta"><span class="zh">机场基础信息</span><span class="en">Airport master data</span></div></div>
+                <div class="model-item"><div class="name">terminals</div><div class="meta"><span class="zh">航站楼</span><span class="en">Terminal buildings</span></div></div>
+                <div class="model-item"><div class="name">gates</div><div class="meta"><span class="zh">登机口</span><span class="en">Boarding gates</span></div></div>
+                <div class="model-item"><div class="name">airlines</div><div class="meta"><span class="zh">航空公司</span><span class="en">Airline companies</span></div></div>
+                <div class="model-item"><div class="name">flights</div><div class="meta"><span class="zh">航班信息</span><span class="en">Flight records</span></div></div>
+                <div class="model-item"><div class="name">passengers</div><div class="meta"><span class="zh">旅客信息</span><span class="en">Passenger records</span></div></div>
+                <div class="model-item"><div class="name">baggage</div><div class="meta"><span class="zh">行李</span><span class="en">Baggage items</span></div></div>
+                <div class="model-item"><div class="name">flight_gate_assignments</div><div class="meta"><span class="zh">航班-登机口分配</span><span class="en">Flight-gate junction</span></div></div>
+                <div class="model-item"><div class="name">boarding_passes</div><div class="meta"><span class="zh">登机牌</span><span class="en">Boarding passes</span></div></div>
+            </div>
+        </div>
+
+        <!-- Step 2: Entity Classification -->
+        <div class="walkthrough" style="margin-bottom:var(--spacing-lg);">
+            <h3><span class="zh">Phase 3: 实体分类结果</span><span class="en">Phase 3: Entity Classification Result</span></h3>
+            <div class="table-wrap" style="margin-top:var(--spacing-md);box-shadow:none;border-radius:var(--radius-md);">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><span class="zh">表名</span><span class="en">Table</span></th>
+                            <th><span class="zh">分类</span><span class="en">Classification</span></th>
+                            <th><span class="zh">依据</span><span class="en">Reasoning</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>airports</strong></td><td>ObjectType</td><td><span class="zh">有独立 PK，核心业务实体</span><span class="en">Has own PK, core business entity</span></td></tr>
+                        <tr><td><strong>terminals</strong></td><td>ObjectType</td><td><span class="zh">有独立 PK，含 airport_id FK + 多个非 FK 列</span><span class="en">Has own PK, airport_id FK + multiple non-FK columns</span></td></tr>
+                        <tr><td><strong>gates</strong></td><td>ObjectType</td><td><span class="zh">有独立 PK，含 terminal_id FK + gate_number 等</span><span class="en">Has own PK, terminal_id FK + gate_number etc.</span></td></tr>
+                        <tr><td><strong>airlines</strong></td><td>ObjectType</td><td><span class="zh">有独立 PK，代表航空公司实体</span><span class="en">Has own PK, represents airline entity</span></td></tr>
+                        <tr><td><strong>flights</strong></td><td>ObjectType</td><td><span class="zh">有独立 PK，12 个非 FK 列，核心实体</span><span class="en">Has own PK, 12 non-FK columns, core entity</span></td></tr>
+                        <tr><td><strong>passengers</strong></td><td>ObjectType</td><td><span class="zh">有独立 PK，含敏感 PII 字段</span><span class="en">Has own PK, contains sensitive PII fields</span></td></tr>
+                        <tr><td><strong>baggage</strong></td><td>ObjectType</td><td><span class="zh">有独立 PK，含 weight、status 等实质列</span><span class="en">Has own PK, weight/status substantive columns</span></td></tr>
+                        <tr><td><strong>flight_gate_assignments</strong></td><td>LinkType</td><td><span class="zh">两个 FK (flight_id, gate_id) 组成复合 PK，2 个非 FK 列</span><span class="en">2 FKs (flight_id, gate_id) as composite PK, 2 non-FK columns</span></td></tr>
+                        <tr><td><strong>boarding_passes</strong></td><td>LinkType</td><td><span class="zh">关联 passenger_id + flight_id，含 seat_number 等少量属性</span><span class="en">Junction of passenger_id + flight_id, with seat_number etc.</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Step 3: SharedPropertyType & InterfaceType -->
+        <div class="walkthrough" style="margin-bottom:var(--spacing-lg);">
+            <h3><span class="zh">Phase 4: 共享属性与接口推断</span><span class="en">Phase 4: SharedPropertyType &amp; InterfaceType Inference</span></h3>
+            <p style="font-size:var(--font-size-sm);color:var(--text-secondary);margin-bottom:var(--spacing-md);">
+                <span class="zh">扫描所有表，发现以下在 3+ 张表中出现的同名同类型列：</span>
+                <span class="en">Scanning all tables, these columns appear in 3+ tables with the same name &amp; type:</span>
+            </p>
+            <div class="grid-2">
+                <div class="model-group">
+                    <h4><div class="dot bg-aero"></div> SharedPropertyTypes</h4>
+                    <div class="model-item"><div class="name"><code>iata_code</code> <span style="color:var(--text-secondary);font-size:var(--font-size-xs);">DT_STRING</span></div><div class="meta"><span class="zh">airports, airlines, flights 共用</span><span class="en">Shared by airports, airlines, flights</span></div></div>
+                    <div class="model-item"><div class="name"><code>status</code> <span style="color:var(--text-secondary);font-size:var(--font-size-xs);">DT_STRING</span></div><div class="meta"><span class="zh">flights, gates, baggage 等 5 张表共用</span><span class="en">Shared by flights, gates, baggage, etc. (5 tables)</span></div></div>
+                    <div class="model-item"><div class="name"><code>created_at</code> <span style="color:var(--text-secondary);font-size:var(--font-size-xs);">DT_TIMESTAMP</span></div><div class="meta"><span class="zh">所有表共用</span><span class="en">Shared by all tables</span></div></div>
+                    <div class="model-item"><div class="name"><code>updated_at</code> <span style="color:var(--text-secondary);font-size:var(--font-size-xs);">DT_TIMESTAMP</span></div><div class="meta"><span class="zh">所有表共用</span><span class="en">Shared by all tables</span></div></div>
+                    <div class="model-item"><div class="name"><code>name</code> <span style="color:var(--text-secondary);font-size:var(--font-size-xs);">DT_STRING</span></div><div class="meta"><span class="zh">airports, airlines, terminals 共用</span><span class="en">Shared by airports, airlines, terminals</span></div></div>
+                    <div class="model-item"><div class="name"><code>latitude</code> / <code>longitude</code> <span style="color:var(--text-secondary);font-size:var(--font-size-xs);">DT_DOUBLE</span></div><div class="meta"><span class="zh">airports, gates 共用</span><span class="en">Shared by airports, gates</span></div></div>
+                </div>
+                <div class="model-group">
+                    <h4><div class="dot bg-green"></div> InterfaceTypes</h4>
+                    <div class="model-item">
+                        <div class="name"><code>auditable</code> <span style="color:var(--text-secondary);font-size:var(--font-size-xs);">OBJECT_INTERFACE</span></div>
+                        <div class="meta"><span class="zh">要求: created_at, updated_at &mdash; 所有对象实现</span><span class="en">Requires: created_at, updated_at &mdash; all objects implement</span></div>
+                    </div>
+                    <div class="model-item">
+                        <div class="name"><code>named_entity</code> <span style="color:var(--text-secondary);font-size:var(--font-size-xs);">OBJECT_INTERFACE</span></div>
+                        <div class="meta"><span class="zh">要求: name &mdash; Airport, Airline, Terminal 实现</span><span class="en">Requires: name &mdash; Airport, Airline, Terminal implement</span></div>
+                    </div>
+                    <div class="model-item">
+                        <div class="name"><code>locatable</code> <span style="color:var(--text-secondary);font-size:var(--font-size-xs);">OBJECT_INTERFACE</span></div>
+                        <div class="meta"><span class="zh">要求: latitude, longitude &mdash; Airport, Gate 实现</span><span class="en">Requires: latitude, longitude &mdash; Airport, Gate implement</span></div>
+                    </div>
+                    <div class="model-item">
+                        <div class="name"><code>stateful</code> <span style="color:var(--text-secondary);font-size:var(--font-size-xs);">OBJECT_INTERFACE</span></div>
+                        <div class="meta"><span class="zh">要求: status &mdash; Flight, Gate, Baggage 实现</span><span class="en">Requires: status &mdash; Flight, Gate, Baggage implement</span></div>
+                    </div>
+                    <div class="model-item">
+                        <div class="name"><code>schedulable</code> <span style="color:var(--text-secondary);font-size:var(--font-size-xs);">OBJECT_INTERFACE</span></div>
+                        <div class="meta"><span class="zh">扩展 stateful，额外要求: scheduled_time, actual_time &mdash; Flight 实现</span><span class="en">Extends stateful, adds: scheduled_time, actual_time &mdash; Flight implements</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Final Ontology Model -->
+        <div class="walkthrough" style="margin-bottom:var(--spacing-lg);">
+            <h3><span class="zh">Phase 6-7: 最终 Ontology 模型</span><span class="en">Phase 6-7: Final Ontology Model</span></h3>
+            <p style="font-size:var(--font-size-sm);color:var(--text-secondary);margin-bottom:var(--spacing-md);">
+                <span class="zh">经过命名、RID 生成、详细映射和校验，得到完整的 OntologyRegistry：</span>
+                <span class="en">After naming, RID generation, detailed mapping, and validation, we get the complete OntologyRegistry:</span>
+            </p>
+            <div class="model-showcase">
+                <div class="grid-2">
+                    <!-- ObjectTypes -->
+                    <div class="model-group">
+                        <h4><div class="dot bg-amber"></div> ObjectTypes (7)</h4>
+                        <div class="model-item">
+                            <div class="name"><code>airport</code></div>
+                            <div class="meta"><span class="zh">属性: iata_code, name, city, country, latitude, longitude, timezone | 实现: auditable, named_entity, locatable</span><span class="en">Props: iata_code, name, city, country, latitude, longitude, timezone | Implements: auditable, named_entity, locatable</span></div>
+                        </div>
+                        <div class="model-item">
+                            <div class="name"><code>terminal</code></div>
+                            <div class="meta"><span class="zh">属性: name, terminal_code, capacity | 实现: auditable, named_entity</span><span class="en">Props: name, terminal_code, capacity | Implements: auditable, named_entity</span></div>
+                        </div>
+                        <div class="model-item">
+                            <div class="name"><code>gate</code></div>
+                            <div class="meta"><span class="zh">属性: gate_number, status, gate_type, latitude, longitude | 实现: auditable, locatable, stateful</span><span class="en">Props: gate_number, status, gate_type, latitude, longitude | Implements: auditable, locatable, stateful</span></div>
+                        </div>
+                        <div class="model-item">
+                            <div class="name"><code>airline</code></div>
+                            <div class="meta"><span class="zh">属性: iata_code, name, country, alliance | 实现: auditable, named_entity</span><span class="en">Props: iata_code, name, country, alliance | Implements: auditable, named_entity</span></div>
+                        </div>
+                        <div class="model-item">
+                            <div class="name"><code>flight</code></div>
+                            <div class="meta"><span class="zh">属性: flight_number, iata_code, status, scheduled_departure, actual_departure, scheduled_arrival, actual_arrival, origin, destination | 实现: auditable, stateful, schedulable</span><span class="en">Props: flight_number, iata_code, status, scheduled_departure, actual_departure, scheduled_arrival, actual_arrival, origin, destination | Implements: auditable, stateful, schedulable</span></div>
+                        </div>
+                        <div class="model-item">
+                            <div class="name"><code>passenger</code></div>
+                            <div class="meta"><span class="zh">属性: name, passport_number (RESTRICTED / MASK_REDACT_FULL), email (INTERNAL / MASK_EMAIL_USER), phone | 实现: auditable</span><span class="en">Props: name, passport_number (RESTRICTED / MASK_REDACT_FULL), email (INTERNAL / MASK_EMAIL_USER), phone | Implements: auditable</span></div>
+                        </div>
+                        <div class="model-item">
+                            <div class="name"><code>baggage</code></div>
+                            <div class="meta"><span class="zh">属性: tag_number, weight, status, baggage_type | 实现: auditable, stateful</span><span class="en">Props: tag_number, weight, status, baggage_type | Implements: auditable, stateful</span></div>
+                        </div>
+                    </div>
+
+                    <!-- LinkTypes + ActionTypes -->
+                    <div>
+                        <div class="model-group" style="margin-bottom:var(--spacing-lg);">
+                            <h4><div class="dot bg-indigo"></div> LinkTypes (5)</h4>
+                            <div class="model-item">
+                                <div class="name"><code>terminal_belongs_to_airport</code></div>
+                                <div class="meta">Terminal &rarr; Airport | ONE_TO_MANY</div>
+                            </div>
+                            <div class="model-item">
+                                <div class="name"><code>gate_belongs_to_terminal</code></div>
+                                <div class="meta">Gate &rarr; Terminal | ONE_TO_MANY</div>
+                            </div>
+                            <div class="model-item">
+                                <div class="name"><code>flight_operated_by_airline</code></div>
+                                <div class="meta">Flight &rarr; Airline | ONE_TO_MANY</div>
+                            </div>
+                            <div class="model-item">
+                                <div class="name"><code>flight_assigned_to_gate</code></div>
+                                <div class="meta"><span class="zh">Flight &rarr; Gate | MANY_TO_MANY | 属性: assigned_time, is_current</span><span class="en">Flight &rarr; Gate | MANY_TO_MANY | Props: assigned_time, is_current</span></div>
+                            </div>
+                            <div class="model-item">
+                                <div class="name"><code>passenger_boarded_flight</code></div>
+                                <div class="meta"><span class="zh">Passenger &rarr; Flight | MANY_TO_MANY | 属性: seat_number, boarding_group, checked_in</span><span class="en">Passenger &rarr; Flight | MANY_TO_MANY | Props: seat_number, boarding_group, checked_in</span></div>
+                            </div>
+                        </div>
+
+                        <div class="model-group">
+                            <h4><div class="dot bg-red"></div> ActionTypes (3)</h4>
+                            <div class="model-item">
+                                <div class="name"><code>delay_flight</code></div>
+                                <div class="meta"><span class="zh">参数: Flight 实例 + new_time (TIMESTAMP) | 引擎: ENGINE_PYTHON_VENV | 安全: NON_IDEMPOTENT | 副作用: DATA_MUTATION, NOTIFICATION</span><span class="en">Params: Flight instance + new_time (TIMESTAMP) | Engine: ENGINE_PYTHON_VENV | Safety: NON_IDEMPOTENT | Effects: DATA_MUTATION, NOTIFICATION</span></div>
+                            </div>
+                            <div class="model-item">
+                                <div class="name"><code>assign_gate</code></div>
+                                <div class="meta"><span class="zh">参数: Flight 实例 + Gate 实例 | 引擎: ENGINE_NATIVE_CRUD | 安全: IDEMPOTENT_WRITE</span><span class="en">Params: Flight instance + Gate instance | Engine: ENGINE_NATIVE_CRUD | Safety: IDEMPOTENT_WRITE</span></div>
+                            </div>
+                            <div class="model-item">
+                                <div class="name"><code>check_in_passenger</code></div>
+                                <div class="meta"><span class="zh">参数: Passenger 实例 + Flight 实例 + seat_preference (STRING) | 引擎: ENGINE_PYTHON_VENV | 安全: NON_IDEMPOTENT | 副作用: DATA_MUTATION</span><span class="en">Params: Passenger + Flight + seat_preference (STRING) | Engine: ENGINE_PYTHON_VENV | Safety: NON_IDEMPOTENT | Effects: DATA_MUTATION</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Relationship Diagram for Airport -->
+        <div class="walkthrough">
+            <h3><span class="zh">机场 Ontology 关系全景图</span><span class="en">Airport Ontology Relationship Overview</span></h3>
+            <div class="diagram-card" style="margin-top:var(--spacing-md);box-shadow:none;border:none;padding:var(--spacing-md);">
+                <svg viewBox="0 0 760 340" width="760" height="340" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, sans-serif">
+                    <defs>
+                        <marker id="ah2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#94A3B8"/></marker>
+                    </defs>
+
+                    <!-- Interface row -->
+                    <rect x="10" y="10" width="120" height="32" rx="8" fill="#00A383" opacity="0.85"/><text x="70" y="26" font-size="11" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">auditable</text>
+                    <rect x="140" y="10" width="120" height="32" rx="8" fill="#00A383" opacity="0.85"/><text x="200" y="26" font-size="11" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">named_entity</text>
+                    <rect x="270" y="10" width="110" height="32" rx="8" fill="#00A383" opacity="0.85"/><text x="325" y="26" font-size="11" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">locatable</text>
+                    <rect x="390" y="10" width="100" height="32" rx="8" fill="#00A383" opacity="0.85"/><text x="440" y="26" font-size="11" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">stateful</text>
+                    <rect x="500" y="10" width="120" height="32" rx="8" fill="#00A383" opacity="0.85"/><text x="560" y="26" font-size="11" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">schedulable</text>
+
+                    <!-- EXTENDS arrow: schedulable -> stateful -->
+                    <line x1="500" y1="26" x2="494" y2="26" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#ah2)" stroke-dasharray="4,2"/>
+                    <text x="497" y="20" font-size="8" fill="#64748B" text-anchor="middle">EXTENDS</text>
+
+                    <!-- Object row -->
+                    <rect x="10" y="100" width="100" height="36" rx="8" fill="#D97706"/><text x="60" y="118" font-size="11" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">Airport</text>
+                    <rect x="130" y="100" width="100" height="36" rx="8" fill="#D97706"/><text x="180" y="118" font-size="11" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">Terminal</text>
+                    <rect x="250" y="100" width="80" height="36" rx="8" fill="#D97706"/><text x="290" y="118" font-size="11" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">Gate</text>
+                    <rect x="350" y="100" width="90" height="36" rx="8" fill="#D97706"/><text x="395" y="118" font-size="11" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">Airline</text>
+                    <rect x="460" y="100" width="80" height="36" rx="8" fill="#D97706"/><text x="500" y="118" font-size="11" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">Flight</text>
+                    <rect x="560" y="100" width="100" height="36" rx="8" fill="#D97706"/><text x="610" y="118" font-size="11" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">Passenger</text>
+                    <rect x="680" y="100" width="80" height="36" rx="8" fill="#D97706"/><text x="720" y="118" font-size="11" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">Baggage</text>
+
+                    <!-- IMPLEMENTS arrows (dotted, up) -->
+                    <line x1="60" y1="100" x2="60" y2="46" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ah2)"/>
+                    <line x1="180" y1="100" x2="180" y2="46" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ah2)"/>
+                    <line x1="290" y1="100" x2="310" y2="46" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ah2)"/>
+                    <line x1="290" y1="100" x2="430" y2="46" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ah2)"/>
+                    <line x1="500" y1="100" x2="440" y2="46" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ah2)"/>
+                    <line x1="500" y1="100" x2="550" y2="46" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ah2)"/>
+                    <line x1="720" y1="100" x2="440" y2="46" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ah2)"/>
+
+                    <!-- Link row -->
+                    <rect x="70" y="200" width="160" height="30" rx="8" fill="#4338CA" opacity="0.85"/><text x="150" y="215" font-size="10" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">terminal_belongs_to_airport</text>
+                    <rect x="240" y="200" width="160" height="30" rx="8" fill="#4338CA" opacity="0.85"/><text x="320" y="215" font-size="10" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">gate_belongs_to_terminal</text>
+                    <rect x="410" y="200" width="160" height="30" rx="8" fill="#4338CA" opacity="0.85"/><text x="490" y="215" font-size="10" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">flight_operated_by_airline</text>
+                    <rect x="180" y="250" width="160" height="30" rx="8" fill="#4338CA" opacity="0.85"/><text x="260" y="265" font-size="10" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">flight_assigned_to_gate</text>
+                    <rect x="420" y="250" width="180" height="30" rx="8" fill="#4338CA" opacity="0.85"/><text x="510" y="265" font-size="10" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">passenger_boarded_flight</text>
+
+                    <!-- CONNECTS arrows (link to objects) -->
+                    <line x1="150" y1="200" x2="120" y2="140" stroke="#94A3B8" stroke-width="1" marker-end="url(#ah2)"/>
+                    <line x1="150" y1="200" x2="70" y2="140" stroke="#94A3B8" stroke-width="1" marker-end="url(#ah2)"/>
+                    <line x1="320" y1="200" x2="290" y2="140" stroke="#94A3B8" stroke-width="1" marker-end="url(#ah2)"/>
+                    <line x1="320" y1="200" x2="200" y2="140" stroke="#94A3B8" stroke-width="1" marker-end="url(#ah2)"/>
+                    <line x1="490" y1="200" x2="490" y2="140" stroke="#94A3B8" stroke-width="1" marker-end="url(#ah2)"/>
+                    <line x1="490" y1="200" x2="410" y2="140" stroke="#94A3B8" stroke-width="1" marker-end="url(#ah2)"/>
+                    <line x1="260" y1="250" x2="500" y2="140" stroke="#94A3B8" stroke-width="1" marker-end="url(#ah2)"/>
+                    <line x1="260" y1="250" x2="290" y2="140" stroke="#94A3B8" stroke-width="1" marker-end="url(#ah2)"/>
+                    <line x1="510" y1="250" x2="610" y2="140" stroke="#94A3B8" stroke-width="1" marker-end="url(#ah2)"/>
+                    <line x1="510" y1="250" x2="500" y2="140" stroke="#94A3B8" stroke-width="1" marker-end="url(#ah2)"/>
+
+                    <!-- Action row -->
+                    <rect x="160" y="305" width="120" height="28" rx="8" fill="#DC2626" opacity="0.85"/><text x="220" y="319" font-size="10" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">delay_flight</text>
+                    <rect x="310" y="305" width="120" height="28" rx="8" fill="#DC2626" opacity="0.85"/><text x="370" y="319" font-size="10" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">assign_gate</text>
+                    <rect x="460" y="305" width="160" height="28" rx="8" fill="#DC2626" opacity="0.85"/><text x="540" y="319" font-size="10" font-weight="600" fill="#fff" text-anchor="middle" dominant-baseline="central">check_in_passenger</text>
+
+                    <!-- OPERATES_ON arrows -->
+                    <line x1="220" y1="305" x2="500" y2="140" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ah2)"/>
+                    <line x1="370" y1="305" x2="490" y2="140" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ah2)"/>
+                    <line x1="370" y1="305" x2="300" y2="140" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ah2)"/>
+                    <line x1="540" y1="305" x2="610" y2="140" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ah2)"/>
+                    <line x1="540" y1="305" x2="510" y2="140" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ah2)"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ Footer ============ -->
+    <footer class="site-footer">
+        DataOS (LingShu) Ontology &mdash; v1.3.0
+    </footer>
+
+    <script>
+    // Theme & Language toggles
+    document.getElementById('themeToggle').addEventListener('click', function() {
+        var html = document.documentElement;
+        html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+    document.getElementById('langToggle').addEventListener('click', function() {
+        var html = document.documentElement;
+        var next = html.getAttribute('data-lang') === 'zh' ? 'en' : 'zh';
+        html.setAttribute('data-lang', next);
+        html.setAttribute('lang', next === 'zh' ? 'zh-CN' : 'en');
+    });
+
+    // ---- Layout: position audio bar right below nav ----
+    (function() {
+        var nav = document.querySelector('.site-nav');
+        var player = document.getElementById('audioPlayer');
+        function positionPlayer() {
+            var navH = nav.offsetHeight;
+            player.style.top = navH + 'px';
+            // Set scroll-margin on all sections so scrollIntoView clears fixed bars
+            var fixedH = navH + player.offsetHeight + 16;
+            document.documentElement.style.setProperty('--fixed-header-h', fixedH + 'px');
+            var secs = document.querySelectorAll('[id^="sec-"]');
+            for (var i = 0; i < secs.length; i++) {
+                secs[i].style.scrollMarginTop = fixedH + 'px';
+            }
+            // Push body content below both fixed bars
+            document.body.style.paddingTop = (navH + player.offsetHeight) + 'px';
+        }
+        positionPlayer();
+        window.addEventListener('resize', positionPlayer);
+    })();
+
+    // ---- Audio Player ----
+    (function() {
+        var audio = document.getElementById('narrationAudio');
+        var playBtn = document.getElementById('playBtn');
+        var playIcon = document.getElementById('playIcon');
+        var pauseIcon = document.getElementById('pauseIcon');
+        var progressBar = document.getElementById('progressBar');
+        var progressWrap = document.getElementById('progressWrap');
+        var audioTime = document.getElementById('audioTime');
+
+        // Cue points calibrated from actual QwenTTS chunk durations
+        var cues = [
+            { start: 0,     end: 24.1,  id: 'sec-hero' },
+            { start: 24.1,  end: 52.1,  id: 'sec-philosophy' },
+            { start: 52.1,  end: 115.6, id: 'sec-entities' },
+            { start: 115.6, end: 151.7, id: 'sec-edges' },
+            { start: 151.7, end: 165.8, id: 'sec-lifecycle' },
+            { start: 165.8, end: 218.6, id: 'sec-methodology' },
+            { start: 218.6, end: 300.1, id: 'sec-airport' },
+            { start: 300.1, end: 999,   id: 'sec-hero' }
+        ];
+
+        function fmt(s) {
+            var m = Math.floor(s / 60), sec = Math.floor(s % 60);
+            return m + ':' + (sec < 10 ? '0' : '') + sec;
+        }
+
+        function updateIcons(playing) {
+            playIcon.style.display = playing ? 'none' : '';
+            pauseIcon.style.display = playing ? '' : 'none';
+        }
+
+        playBtn.addEventListener('click', function() {
+            if (audio.paused) { audio.play(); } else { audio.pause(); }
+        });
+
+        audio.addEventListener('play', function() { updateIcons(true); });
+        audio.addEventListener('pause', function() { updateIcons(false); });
+        audio.addEventListener('ended', function() {
+            updateIcons(false);
+            clearHighlights();
+        });
+
+        audio.addEventListener('timeupdate', function() {
+            var dur = audio.duration || 1;
+            progressBar.style.width = (audio.currentTime / dur * 100) + '%';
+            audioTime.textContent = fmt(audio.currentTime) + ' / ' + fmt(dur);
+            highlightSection(audio.currentTime);
+        });
+
+        progressWrap.addEventListener('click', function(e) {
+            var rect = progressWrap.getBoundingClientRect();
+            var pct = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = pct * (audio.duration || 0);
+        });
+
+        var currentSection = null;
+        function highlightSection(t) {
+            var active = null;
+            for (var i = 0; i < cues.length; i++) {
+                if (t >= cues[i].start && t < cues[i].end) { active = cues[i].id; break; }
+            }
+            if (active === currentSection) return;
+            clearHighlights();
+            currentSection = active;
+            if (active) {
+                var el = document.getElementById(active);
+                if (el) {
+                    el.classList.add('section-active');
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        }
+
+        function clearHighlights() {
+            currentSection = null;
+            var els = document.querySelectorAll('.section-active');
+            for (var i = 0; i < els.length; i++) els[i].classList.remove('section-active');
+        }
+
+    })();
+    </script>
+</body>
+</html>

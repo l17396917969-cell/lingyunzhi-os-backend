@@ -1,0 +1,328 @@
+syntax = "proto3";
+package avic.lingshu.proto;
+
+import "common.proto";
+import "interaction.proto";
+import "validation.proto";
+
+// ==========================================
+// 命名规范与引用规则
+// ==========================================
+// 1. 所有类型定义消息统一命名为 XXXTypeDefinition
+// 2. 所有类型的 RID 字段统一命名为 xxx_type_rid
+// 3. 跨实体引用规则：
+//    - PropertyType 引用：property_type_rid (全局唯一)
+//    - SharedPropertyType 引用：shared_property_type_rid (全局唯一)
+//    - ObjectType 引用：object_type_rid
+//    - InterfaceType 引用：interface_type_rid
+//    - LinkType 引用：link_type_rid
+//    - ActionType 引用：action_type_rid
+// 4. 删除实体前必须检查引用完整性（通过图数据库的入度检查）
+
+// ==========================================
+// 1. 顶层注册表
+// ==========================================
+// 将所有定义打包的地方，通常放在最上面作为入口。
+message OntologyRegistry {
+    string version = 1; 
+    
+    // Key 为 RID
+    map<string, SharedPropertyTypeDefinition> shared_property_types = 2;
+    map<string, InterfaceTypeDefinition> interface_types = 3;
+    map<string, ObjectTypeDefinition> object_types = 4; 
+    map<string, LinkTypeDefinition> link_types = 5; 
+    map<string, ActionTypeDefinition> action_types = 6; 
+}
+
+// ==========================================
+// 2. 共享属性类型定义
+// ==========================================
+// 全局可复用的属性模板，被 InterfaceType 引用（REQUIRES 边），
+// 被 PropertyType 继承（BASED_ON 边）。
+message SharedPropertyTypeDefinition {
+    string rid = 1;
+    string api_name = 2;
+    string display_name = 3;
+    string description = 4;
+    LifecycleStatus lifecycle_status = 5;
+
+    DataType data_type = 11;
+
+    WidgetConfig widget = 21;
+    PropertyValidationConfig validation = 22;
+
+    ComplianceConfig compliance = 31;
+}
+
+// ==========================================
+// 3. 属性类型定义
+// ==========================================
+// 依附于 ObjectType 或 LinkType 的具体属性，可继承 SharedPropertyType。
+message PropertyTypeDefinition {
+    string rid = 1;
+    string api_name = 2;
+    string display_name = 3;
+    string description = 4;
+    LifecycleStatus lifecycle_status = 5;
+    
+    DataType data_type = 11;
+    string inherit_from_shared_property_type_rid = 12; 
+
+    oneof backing {
+        string physical_column = 13;
+        string virtual_expression = 14;
+    }
+
+    WidgetConfig widget = 21;
+    PropertyValidationConfig validation = 22;
+
+    ComplianceConfig compliance = 31;
+}
+
+message ComplianceConfig {
+    Sensitivity sensitivity = 1;
+    MaskingStrategy masking = 2;
+}
+
+// ==========================================
+// 4. 接口定义
+// ==========================================
+// 定义形状和约束，被 Object 和 Link 实现。
+message InterfaceTypeDefinition {
+    string rid = 1;
+    string api_name = 2;
+    string display_name = 3;
+    string description = 4;
+    LifecycleStatus lifecycle_status = 5;
+
+    // 接口分类（必填）
+    InterfaceCategory category = 6;
+
+    repeated string extends_interface_type_rids = 11;
+    repeated string required_shared_property_type_rids = 12;
+
+    // [仅 OBJECT_INTERFACE] 定义实现者必须具备的关联关系
+    repeated ObjectLinkRequirement link_requirements = 13;
+    
+    // [仅 LINK_INTERFACE] 定义边连接的对象类型约束
+    LinkObjectConstraint object_constraint = 14;
+}
+
+// 描述 Interface 要求实现者具备的 Link
+message ObjectLinkRequirement {
+    string rid = 1; 
+    string api_name = 2; 
+    string display_name = 3; 
+    string description = 4;
+    Cardinality cardinality = 5;
+    ObjectTypeSpec source_object = 6;
+    ObjectTypeSpec target_object = 7;
+}
+
+// 描述 Link 的两端对象类型约束
+message LinkObjectConstraint {
+    ObjectTypeSpec source_object = 1;
+    ObjectTypeSpec target_object = 2;
+}
+
+// 描述对象类型的引用方式
+message ObjectTypeSpec {
+    enum ReferenceType {
+        REFERENCE_TYPE_INVALID = 0;  // 无效值，运行时必须报错
+        SELF = 1;                    // 指向实现该 Interface 的类型本身
+        EXPLICIT_OBJECT = 2;         // 明确指向某个 ObjectType
+        EXPLICIT_INTERFACE = 3;      // 明确指向某个 Interface
+    }
+    ReferenceType reference_type = 1;
+    oneof reference_rid {
+        string object_type_rid = 2;
+        string interface_type_rid = 3;
+    }
+}
+
+// ==========================================
+// 5. 对象定义
+// ==========================================
+// 图的节点，实现 Interface，包含 Property。
+message ObjectTypeDefinition {
+    string rid = 1;
+    string api_name = 2;
+    string display_name = 3;
+    string description = 4;
+    LifecycleStatus lifecycle_status = 5;
+
+    map<string, PropertyTypeDefinition> property_types = 11;
+    
+    // 引用 Interface RID
+    repeated string implements_interface_type_rids = 12;
+
+    repeated string primary_key_property_type_rids = 21;
+    EntityValidationConfig validation = 22;
+
+    AssetMapping asset_mapping = 31;
+}
+
+// ==========================================
+// 6. 链接定义
+// ==========================================
+// 图的边，连接 Node/Interface，实现 Contract。
+message LinkTypeDefinition {
+    string rid = 1;
+    string api_name = 2;     
+    string display_name = 3;
+    string description = 4;
+    LifecycleStatus lifecycle_status = 5;
+
+    oneof source_type {
+        string source_object_type_rid = 11;
+        string source_interface_type_rid = 12;
+    }
+    oneof target_type {
+        string target_object_type_rid = 13;
+        string target_interface_type_rid = 14; 
+    }
+    map<string, PropertyTypeDefinition> property_types = 15; 
+    
+    Cardinality cardinality = 21;
+    repeated string primary_key_property_type_rids = 22;
+    EntityValidationConfig validation = 23;
+    
+    repeated string implements_interface_type_rids = 24;
+
+    AssetMapping asset_mapping = 31;
+}
+
+// ==========================================
+// 7. 动作定义
+// ==========================================
+// 作用于 Node 或 Edge 的操作。
+message ActionTypeDefinition {
+    string rid = 1;
+    string api_name = 2;
+    string display_name = 3;
+    string description = 4;
+    LifecycleStatus lifecycle_status = 5;
+
+    repeated ActionParameter parameters = 11;
+
+    ActionExecutionConfig execution = 21;
+    ActionSafetyLevel safety_level = 31;
+    repeated SideEffectDeclaration side_effects = 32;
+}
+
+message ActionParameter {
+    string api_name = 1;
+    string display_name = 2;
+    string description = 3;
+    bool required = 4;
+
+    oneof definition_source {
+        DataType explicit_type = 11;
+        string derived_from_object_type_rid = 12;
+        string derived_from_link_type_rid = 13;
+        string derived_from_interface_type_rid = 14;
+    }
+}
+
+message ActionExecutionConfig {
+    enum EngineType {
+        ENGINE_UNSPECIFIED = 0;
+        ENGINE_NATIVE_CRUD = 1; 
+        ENGINE_PYTHON_VENV = 2; 
+        ENGINE_SQL_RUNNER = 3;  
+        ENGINE_WEBHOOK = 4;
+    }
+    EngineType type = 1;
+    bool is_batch = 2;
+    bool is_sync = 3;
+    oneof implementation {
+        string native_crud_json = 11;
+        string python_script = 12;
+        string sql_template = 13;
+        string webhook_config_json = 14;
+    }
+}
+
+message SideEffectDeclaration {
+    SideEffectCategory category = 1; 
+    string description = 2;
+}
+
+// ==========================================
+// 附录：枚举定义
+// ==========================================
+// 放在底部，保持核心逻辑紧凑
+enum Cardinality {
+    CARDINALITY_UNSPECIFIED = 0;
+    ONE_TO_ONE = 1;
+    ONE_TO_MANY = 2;
+    MANY_TO_MANY = 3;
+}
+
+enum InterfaceCategory {
+    INTERFACE_CATEGORY_INVALID = 0;  // 无效值，运行时必须报错
+    OBJECT_INTERFACE = 1;            // Object 接口：定义节点形状和出边约束
+    LINK_INTERFACE = 2;              // Link 接口：定义边的端点约束
+}
+
+enum LifecycleStatus {
+    LIFECYCLE_UNSPECIFIED = 0;
+    ACTIVE = 1;              // 生产可用
+    EXPERIMENTAL = 2;        // 实验性功能
+    DEPRECATED = 3;          // 已弃用
+    EXAMPLE = 4;             // 示例/演示用途
+}
+
+enum Sensitivity {
+    SENSITIVITY_UNSPECIFIED = 0; 
+    PUBLIC = 1; 
+    INTERNAL = 2; 
+    CONFIDENTIAL = 3; 
+    RESTRICTED = 4;
+}
+
+enum MaskingStrategy {
+    MASK_NONE = 0;           
+    MASK_NULLIFY = 1;       
+    MASK_REDACT_FULL = 2;   
+    SHOW_LAST_4 = 3;        
+    SHOW_FIRST_2 = 4;       
+    MASK_EMAIL_DOMAIN = 5;  
+    MASK_EMAIL_USER = 6;    
+    MASK_PHONE_MIDDLE = 7;  
+}
+
+enum ActionSafetyLevel {
+    SAFETY_UNSPECIFIED = 0;     
+    SAFETY_READ_ONLY = 1;       
+    SAFETY_IDEMPOTENT_WRITE = 2;
+    SAFETY_NON_IDEMPOTENT = 3;  
+    SAFETY_CRITICAL = 4;        
+}
+
+enum SideEffectCategory {
+    CATEGORY_UNSPECIFIED = 0;
+    DATA_MUTATION = 1;      
+    DATA_DELETION = 2;      
+    NOTIFICATION = 3;       
+    EXTERNAL_API_CALL = 4;  
+    BILLING_EVENT = 5;      
+    ACCESS_CONTROL = 6;     
+    OTHER = 100;            
+}
+
+// ==========================================
+// 8. 快照
+// ==========================================
+// 用于 Ontology 版本管理和历史追溯
+// 类似 Git Commit，记录一次 Ontology 变更的提交点
+message Snapshot {
+    string snapshot_id = 1;               // 快照唯一标识（UUID）
+    string parent_snapshot_id = 2;        // 父快照ID（空字符串表示初始快照）
+    string commit_message = 3;            // 提交消息
+    string author = 4;                    // 提交者
+    int64 created_at_timestamp = 5;       // 创建时间（Unix 时间戳，秒）
+    
+    // 注意：entity_changes（变更详情 {"object:rid": "create"}）存储在数据库 snapshots 表的 JSONB 字段中
+    // Proto 只描述快照本身，不包含变更详情（避免消息体过大）
+}

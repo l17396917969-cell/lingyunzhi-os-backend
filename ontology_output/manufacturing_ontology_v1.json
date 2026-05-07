@@ -1,0 +1,6087 @@
+{
+  "ontology": {
+    "apiName": "manufacturing",
+    "displayName": "制造业四系统统一本体",
+    "description": "基于 MES + WMS + APS + TMS 的制造业统一本体模型，涵盖产品、工单、工序、库存、设备、人员、刀具等核心实体",
+    "version": "1.0"
+  },
+  "objectTypes": [
+    {
+      "ontologyRid": "",
+      "apiName": "Product",
+      "displayName": "产品/成品",
+      "description": "制造系统中的通用产品或成品",
+      "primaryKey": "productCode",
+      "properties": [
+        {
+          "apiName": "productCode",
+          "displayName": "产品编码",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": "产品唯一标识"
+        },
+        {
+          "apiName": "productName",
+          "displayName": "产品名称",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "description",
+          "displayName": "描述",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "unit",
+          "displayName": "单位",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "productType",
+          "displayName": "产品类型",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "枚举",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "active",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "standardCost",
+          "displayName": "标准成本",
+          "baseType": "decimal",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "specification",
+          "displayName": "规格参数",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "ProductHasBom",
+          "linkType": "ProductHasBom"
+        },
+        {
+          "apiName": "WorkOrderProduces",
+          "linkType": "WorkOrderProduces"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable",
+        "Quantifiable"
+      ],
+      "datasources": [],
+      "searchableProperties": [
+        "productCode",
+        "productName"
+      ],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "Material",
+      "displayName": "原材料",
+      "description": "生产所需的原材料或基础物料",
+      "primaryKey": "materialCode",
+      "properties": [
+        {
+          "apiName": "materialCode",
+          "displayName": "物料编码",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "materialName",
+          "displayName": "物料名称",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "unit",
+          "displayName": "单位",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "stockQuantity",
+          "displayName": "库存数量",
+          "baseType": "decimal",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "minStock",
+          "displayName": "安全库存",
+          "baseType": "decimal",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "active",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "description",
+          "displayName": "描述",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "BomContainsMaterial",
+          "linkType": "BomContainsMaterial"
+        },
+        {
+          "apiName": "InventoryRecordOfProduct",
+          "linkType": "InventoryRecordOfProduct"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable",
+        "Quantifiable"
+      ],
+      "datasources": [],
+      "searchableProperties": [
+        "materialCode",
+        "materialName"
+      ],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ToolCatalog",
+      "displayName": "刀具目录",
+      "description": "刀具类型定义和目录信息",
+      "primaryKey": "toolCode",
+      "properties": [
+        {
+          "apiName": "toolCode",
+          "displayName": "刀具编码",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "toolName",
+          "displayName": "刀具名称",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "toolType",
+          "displayName": "刀具类型",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "枚举",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "maxLife",
+          "displayName": "最大寿命",
+          "baseType": "decimal",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": "刀具最大使用寿命"
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "active",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "description",
+          "displayName": "描述",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "manufacturer",
+          "displayName": "制造商",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "model",
+          "displayName": "型号",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "ToolForProduct",
+          "linkType": "ToolForProduct"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable"
+      ],
+      "datasources": [],
+      "searchableProperties": [
+        "toolCode",
+        "toolName"
+      ],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "WorkOrder",
+      "displayName": "工单",
+      "description": "制造工单或生产订单",
+      "primaryKey": "orderNo",
+      "properties": [
+        {
+          "apiName": "orderNo",
+          "displayName": "工单号",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "productId",
+          "displayName": "产品ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "quantity",
+          "displayName": "数量",
+          "baseType": "decimal",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "draft",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "priority",
+          "displayName": "优先级",
+          "baseType": "integer",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "planDateStart",
+          "displayName": "计划开始日期",
+          "baseType": "date",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "planDateEnd",
+          "displayName": "计划结束日期",
+          "baseType": "date",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "actualDateStart",
+          "displayName": "实际开始日期",
+          "baseType": "date",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "actualDateEnd",
+          "displayName": "实际结束日期",
+          "baseType": "date",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "notePublic",
+          "displayName": "公开备注",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "WorkOrderProduces",
+          "linkType": "WorkOrderProduces"
+        },
+        {
+          "apiName": "WorkOrderHasOperation",
+          "linkType": "WorkOrderHasOperation"
+        },
+        {
+          "apiName": "ScheduleAssignsWorkOrder",
+          "linkType": "ScheduleAssignsWorkOrder"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable",
+        "StatusTrackable",
+        "Quantifiable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "Operation",
+      "displayName": "工序",
+      "description": "制造工序或操作步骤",
+      "primaryKey": "operationCode",
+      "properties": [
+        {
+          "apiName": "operationCode",
+          "displayName": "工序编码",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "operationName",
+          "displayName": "工序名称",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "sequence",
+          "displayName": "工序序号",
+          "baseType": "integer",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "setupTime",
+          "displayName": "准备时间",
+          "baseType": "decimal",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": "单位：分钟"
+        },
+        {
+          "apiName": "runTimePerUnit",
+          "displayName": "单件加工时间",
+          "baseType": "decimal",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": "单位：分钟"
+        },
+        {
+          "apiName": "machineType",
+          "displayName": "机床类型",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "toolType",
+          "displayName": "刀具类型",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "pending",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "yieldTarget",
+          "displayName": "良率目标",
+          "baseType": "decimal",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "WorkOrderHasOperation",
+          "linkType": "WorkOrderHasOperation"
+        },
+        {
+          "apiName": "OperationRunsOn",
+          "linkType": "OperationRunsOn"
+        },
+        {
+          "apiName": "OperationAssignedTo",
+          "linkType": "OperationAssignedTo"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable",
+        "StatusTrackable"
+      ],
+      "datasources": [],
+      "searchableProperties": [
+        "operationCode",
+        "operationName"
+      ],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "WorkCenter",
+      "displayName": "工作中心",
+      "description": "生产设备或工作中心",
+      "primaryKey": "resourceCode",
+      "properties": [
+        {
+          "apiName": "resourceCode",
+          "displayName": "资源编码",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "resourceName",
+          "displayName": "资源名称",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "resourceType",
+          "displayName": "资源类型",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "枚举",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "capacity",
+          "displayName": "产能",
+          "baseType": "decimal",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "active",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "locationCode",
+          "displayName": "位置编码",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "area",
+          "displayName": "所属区域",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "OperationRunsOn",
+          "linkType": "OperationRunsOn"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable",
+        "Locatable"
+      ],
+      "datasources": [],
+      "searchableProperties": [
+        "resourceCode",
+        "resourceName",
+        "locationCode"
+      ],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "Worker",
+      "displayName": "人员",
+      "description": "生产操作人员或员工",
+      "primaryKey": "workerId",
+      "properties": [
+        {
+          "apiName": "workerId",
+          "displayName": "人员编码",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "workerName",
+          "displayName": "人员姓名",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "role",
+          "displayName": "角色",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "枚举",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "skillIds",
+          "displayName": "技能ID列表",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "active",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "contactInfo",
+          "displayName": "联系方式",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "qualification",
+          "displayName": "资质等级",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "OperationAssignedTo",
+          "linkType": "OperationAssignedTo"
+        },
+        {
+          "apiName": "WorkerHasSkill",
+          "linkType": "WorkerHasSkill"
+        },
+        {
+          "apiName": "WorkerBelongsToTeam",
+          "linkType": "WorkerBelongsToTeam"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable"
+      ],
+      "datasources": [],
+      "searchableProperties": [
+        "workerName"
+      ],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "InventoryRecord",
+      "displayName": "库存记录",
+      "description": "产品在特定库位的库存数量记录",
+      "primaryKey": "recordId",
+      "properties": [
+        {
+          "apiName": "recordId",
+          "displayName": "记录ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "productId",
+          "displayName": "产品ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "locationId",
+          "displayName": "库位ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "quantity",
+          "displayName": "数量",
+          "baseType": "decimal",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "normal",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "lotNo",
+          "displayName": "批次号",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "expiryDate",
+          "displayName": "过期日期",
+          "baseType": "date",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "InventoryRecordOfProduct",
+          "linkType": "InventoryRecordOfProduct"
+        },
+        {
+          "apiName": "InventoryRecordAtLocation",
+          "linkType": "InventoryRecordAtLocation"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable",
+        "Quantifiable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "WarehouseLocation",
+      "displayName": "库位",
+      "description": "仓库中的具体存储位置",
+      "primaryKey": "locationCode",
+      "properties": [
+        {
+          "apiName": "locationCode",
+          "displayName": "库位编码",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "locationName",
+          "displayName": "库位名称",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "locationType",
+          "displayName": "库位类型",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "枚举",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "parentLocation",
+          "displayName": "父库位",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "active",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "area",
+          "displayName": "所属区域",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "InventoryRecordAtLocation",
+          "linkType": "InventoryRecordAtLocation"
+        },
+        {
+          "apiName": "ProductStoredAt",
+          "linkType": "ProductStoredAt"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable",
+        "Locatable"
+      ],
+      "datasources": [],
+      "searchableProperties": [
+        "locationCode",
+        "locationName"
+      ],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "Supplier",
+      "displayName": "供应商",
+      "description": "物料或服务供应商",
+      "primaryKey": "supplierCode",
+      "properties": [
+        {
+          "apiName": "supplierCode",
+          "displayName": "供应商编码",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "supplierName",
+          "displayName": "供应商名称",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "contactName",
+          "displayName": "联系人",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "phone",
+          "displayName": "电话",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "email",
+          "displayName": "邮箱",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "address",
+          "displayName": "地址",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "active",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "SupplierProvidesProduct",
+          "linkType": "SupplierProvidesProduct"
+        },
+        {
+          "apiName": "PurchaseOrderFromSupplier",
+          "linkType": "PurchaseOrderFromSupplier"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable",
+        "Contactable"
+      ],
+      "datasources": [],
+      "searchableProperties": [
+        "supplierCode",
+        "supplierName",
+        "contactName"
+      ],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "Bom",
+      "displayName": "物料清单",
+      "description": "产品的物料组成结构",
+      "primaryKey": "bomId",
+      "properties": [
+        {
+          "apiName": "bomId",
+          "displayName": "BOM编码",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "productId",
+          "displayName": "产品ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "version",
+          "displayName": "版本",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "active",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "description",
+          "displayName": "描述",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "ProductHasBom",
+          "linkType": "ProductHasBom"
+        },
+        {
+          "apiName": "BomContainsMaterial",
+          "linkType": "BomContainsMaterial"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable",
+        "StatusTrackable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "QualityRecord",
+      "displayName": "质量记录",
+      "description": "质检或缺陷记录",
+      "primaryKey": "recordId",
+      "properties": [
+        {
+          "apiName": "recordId",
+          "displayName": "记录ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "type",
+          "displayName": "记录类型",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "枚举",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": "defect/qc_inspection/return_inspection"
+        },
+        {
+          "apiName": "relatedOrderId",
+          "displayName": "关联工单ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "result",
+          "displayName": "结果",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "open",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "quantityChecked",
+          "displayName": "检查数量",
+          "baseType": "integer",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "quantityPassed",
+          "displayName": "合格数量",
+          "baseType": "integer",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "quantityFailed",
+          "displayName": "不合格数量",
+          "baseType": "integer",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "remarks",
+          "displayName": "备注",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable",
+        "StatusTrackable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "StockMovement",
+      "displayName": "库存移动",
+      "description": "库存移动记录（入库/出库/转移）",
+      "primaryKey": "movementId",
+      "properties": [
+        {
+          "apiName": "movementId",
+          "displayName": "移动ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "productId",
+          "displayName": "产品ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "warehouseId",
+          "displayName": "仓库ID",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "quantity",
+          "displayName": "数量",
+          "baseType": "decimal",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "type",
+          "displayName": "移动类型",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "枚举",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": "in/out/transfer"
+        },
+        {
+          "apiName": "label",
+          "displayName": "标签",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "datem",
+          "displayName": "移动日期",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "OperationReport",
+      "displayName": "报工单",
+      "description": "工序报工记录",
+      "primaryKey": "reportId",
+      "properties": [
+        {
+          "apiName": "reportId",
+          "displayName": "报工ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "assignmentId",
+          "displayName": "工序分配ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "worker",
+          "displayName": "操作人",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "outputQty",
+          "displayName": "产出数量",
+          "baseType": "decimal",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "qualifiedQty",
+          "displayName": "合格数量",
+          "baseType": "decimal",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "defectiveQty",
+          "displayName": "不合格数量",
+          "baseType": "decimal",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "workTimeMin",
+          "displayName": "工时(分钟)",
+          "baseType": "decimal",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "notes",
+          "displayName": "备注",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "reportedAt",
+          "displayName": "报工时间",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable",
+        "Quantifiable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "MaterialConsumption",
+      "displayName": "物料消耗",
+      "description": "工序物料消耗记录",
+      "primaryKey": "consumptionId",
+      "properties": [
+        {
+          "apiName": "consumptionId",
+          "displayName": "消耗ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "assignmentId",
+          "displayName": "工序分配ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "productId",
+          "displayName": "物料ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "qty",
+          "displayName": "消耗数量",
+          "baseType": "decimal",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "lotNo",
+          "displayName": "批次号",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "recordedAt",
+          "displayName": "记录时间",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable",
+        "Quantifiable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "PurchaseOrder",
+      "displayName": "采购订单",
+      "description": "物料采购订单",
+      "primaryKey": "poNo",
+      "properties": [
+        {
+          "apiName": "poNo",
+          "displayName": "采购订单号",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "supplierId",
+          "displayName": "供应商ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "draft",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "notes",
+          "displayName": "备注",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "reference",
+          "displayName": "参考号",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "creationDate",
+          "displayName": "创建日期",
+          "baseType": "date",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "PurchaseOrderFromSupplier",
+          "linkType": "PurchaseOrderFromSupplier"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable",
+        "StatusTrackable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "SalesOrder",
+      "displayName": "销售订单",
+      "description": "产品销售订单",
+      "primaryKey": "soNo",
+      "properties": [
+        {
+          "apiName": "soNo",
+          "displayName": "销售订单号",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "customerId",
+          "displayName": "客户ID",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "pending",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "description",
+          "displayName": "描述",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "reference",
+          "displayName": "参考号",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "creationDate",
+          "displayName": "创建日期",
+          "baseType": "date",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "SalesOrderForProduct",
+          "linkType": "SalesOrderForProduct"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable",
+        "StatusTrackable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "SupplierPart",
+      "displayName": "供应商物料",
+      "description": "供应商提供的特定物料及供应信息",
+      "primaryKey": "spId",
+      "properties": [
+        {
+          "apiName": "spId",
+          "displayName": "供应物料ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "partId",
+          "displayName": "物料ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "supplierId",
+          "displayName": "供应商ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "sku",
+          "displayName": "供应商SKU",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "price",
+          "displayName": "供应价",
+          "baseType": "decimal",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "priceCurrency",
+          "displayName": "货币",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "CNY",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "minOrderQty",
+          "displayName": "最小订货量",
+          "baseType": "integer",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "note",
+          "displayName": "备注",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [],
+      "implementedInterfaces": [
+        "Identifiable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "Category",
+      "displayName": "分类",
+      "description": "物料或产品分类层级",
+      "primaryKey": "categoryCode",
+      "properties": [
+        {
+          "apiName": "categoryCode",
+          "displayName": "分类编码",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "categoryName",
+          "displayName": "分类名称",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "parentCategory",
+          "displayName": "父分类",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "level",
+          "displayName": "层级",
+          "baseType": "integer",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "isActive",
+          "displayName": "是否启用",
+          "baseType": "boolean",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "true",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [],
+      "implementedInterfaces": [
+        "Identifiable"
+      ],
+      "datasources": [],
+      "searchableProperties": [
+        "categoryCode",
+        "categoryName"
+      ],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ProcessRoute",
+      "displayName": "工艺路线",
+      "description": "产品制造的工艺路线模板",
+      "primaryKey": "routeId",
+      "properties": [
+        {
+          "apiName": "routeId",
+          "displayName": "路线ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "routeCode",
+          "displayName": "路线编码",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "routeName",
+          "displayName": "路线名称",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "productType",
+          "displayName": "产品类型",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "description",
+          "displayName": "描述",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "isActive",
+          "displayName": "是否启用",
+          "baseType": "boolean",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "true",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "WorkOrderFollowsRoute",
+          "linkType": "WorkOrderFollowsRoute"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable",
+        "StatusTrackable"
+      ],
+      "datasources": [],
+      "searchableProperties": [
+        "routeCode",
+        "routeName"
+      ],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "Schedule",
+      "displayName": "排程",
+      "description": "生产排程结果",
+      "primaryKey": "scheduleId",
+      "properties": [
+        {
+          "apiName": "scheduleId",
+          "displayName": "排程ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "workOrderId",
+          "displayName": "工单ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "resourceId",
+          "displayName": "资源ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "startTime",
+          "displayName": "开始时间",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "endTime",
+          "displayName": "结束时间",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "planned",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "ScheduleAssignsWorkOrder",
+          "linkType": "ScheduleAssignsWorkOrder"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable",
+        "StatusTrackable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ProductionLot",
+      "displayName": "生产批次",
+      "description": "生产批次记录",
+      "primaryKey": "lotNo",
+      "properties": [
+        {
+          "apiName": "lotNo",
+          "displayName": "批次号",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "scheduleId",
+          "displayName": "排程ID",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "productId",
+          "displayName": "产品ID",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "quantity",
+          "displayName": "数量",
+          "baseType": "integer",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "startTime",
+          "displayName": "开始时间",
+          "baseType": "datetime",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "endTime",
+          "displayName": "结束时间",
+          "baseType": "datetime",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "pending",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable",
+        "StatusTrackable",
+        "Quantifiable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "Skill",
+      "displayName": "技能",
+      "description": "工人技能定义",
+      "primaryKey": "skillId",
+      "properties": [
+        {
+          "apiName": "skillId",
+          "displayName": "技能ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "skillName",
+          "displayName": "技能名称",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "skillCode",
+          "displayName": "技能编码",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "description",
+          "displayName": "描述",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "OperationRequiresSkill",
+          "linkType": "OperationRequiresSkill"
+        },
+        {
+          "apiName": "WorkerHasSkill",
+          "linkType": "WorkerHasSkill"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable"
+      ],
+      "datasources": [],
+      "searchableProperties": [
+        "skillName",
+        "skillCode"
+      ],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "Team",
+      "displayName": "班组",
+      "description": "生产班组",
+      "primaryKey": "teamId",
+      "properties": [
+        {
+          "apiName": "teamId",
+          "displayName": "班组ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "teamName",
+          "displayName": "班组名称",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "teamCode",
+          "displayName": "班组编码",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "leaderId",
+          "displayName": "班组长ID",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "description",
+          "displayName": "描述",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "WorkerBelongsToTeam",
+          "linkType": "WorkerBelongsToTeam"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable"
+      ],
+      "datasources": [],
+      "searchableProperties": [
+        "teamName",
+        "teamCode"
+      ],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ResourceCalendar",
+      "displayName": "资源日历",
+      "description": "设备或资源的可用时间日历",
+      "primaryKey": "calendarId",
+      "properties": [
+        {
+          "apiName": "calendarId",
+          "displayName": "日历ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "resourceId",
+          "displayName": "资源ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "date",
+          "displayName": "日期",
+          "baseType": "date",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "shift",
+          "displayName": "班次",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "isWorking",
+          "displayName": "是否工作",
+          "baseType": "boolean",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "capacity",
+          "displayName": "产能",
+          "baseType": "decimal",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "WorkerConstraint",
+      "displayName": "人员约束",
+      "description": "人员工作时间或能力约束",
+      "primaryKey": "constraintId",
+      "properties": [
+        {
+          "apiName": "constraintId",
+          "displayName": "约束ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "workerId",
+          "displayName": "人员ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "constraintType",
+          "displayName": "约束类型",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "startTime",
+          "displayName": "开始时间",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "endTime",
+          "displayName": "结束时间",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "description",
+          "displayName": "描述",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ToolPreparationTask",
+      "displayName": "刀具准备任务",
+      "description": "基于工单的刀具准备任务",
+      "primaryKey": "taskId",
+      "properties": [
+        {
+          "apiName": "taskId",
+          "displayName": "任务ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "workOrderId",
+          "displayName": "工单ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "toolCatalogId",
+          "displayName": "刀具目录ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "requiredQty",
+          "displayName": "需求数量",
+          "baseType": "decimal",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "pending",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "preparedBy",
+          "displayName": "准备人",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "dueTime",
+          "displayName": "截止时间",
+          "baseType": "datetime",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable",
+        "StatusTrackable",
+        "Quantifiable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "Tool",
+      "displayName": "刀具",
+      "description": "具体刀具实例",
+      "primaryKey": "toolInstanceId",
+      "properties": [
+        {
+          "apiName": "toolInstanceId",
+          "displayName": "刀具实例ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "toolCatalogId",
+          "displayName": "刀具目录ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "serialNo",
+          "displayName": "序列号",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "currentLife",
+          "displayName": "当前寿命",
+          "baseType": "decimal",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "available",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "locationId",
+          "displayName": "当前位置ID",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "ToolForProduct",
+          "linkType": "ToolForProduct"
+        },
+        {
+          "apiName": "ToolInstalledAt",
+          "linkType": "ToolInstalledAt"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable",
+        "Locatable",
+        "StatusTrackable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ToolComponent",
+      "displayName": "刀具组件",
+      "description": "刀具组件（刀柄、刀片等）",
+      "primaryKey": "componentId",
+      "properties": [
+        {
+          "apiName": "componentId",
+          "displayName": "组件ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "componentType",
+          "displayName": "组件类型",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "枚举",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "componentName",
+          "displayName": "组件名称",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "toolCatalogId",
+          "displayName": "所属刀具目录ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "active",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [],
+      "implementedInterfaces": [
+        "Identifiable",
+        "StatusTrackable"
+      ],
+      "datasources": [],
+      "searchableProperties": [
+        "componentName"
+      ],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ToolInstallation",
+      "displayName": "刀具装机",
+      "description": "刀具安装到设备的记录",
+      "primaryKey": "installationId",
+      "properties": [
+        {
+          "apiName": "installationId",
+          "displayName": "装机ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "toolId",
+          "displayName": "刀具ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "workCenterId",
+          "displayName": "设备ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "operationId",
+          "displayName": "工序ID",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "installTime",
+          "displayName": "安装时间",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "installed",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable",
+        "StatusTrackable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "WearRecord",
+      "displayName": "磨损记录",
+      "description": "刀具磨损记录",
+      "primaryKey": "wearId",
+      "properties": [
+        {
+          "apiName": "wearId",
+          "displayName": "磨损ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "toolId",
+          "displayName": "刀具ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "wearAmount",
+          "displayName": "磨损量",
+          "baseType": "decimal",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "remainingLife",
+          "displayName": "剩余寿命",
+          "baseType": "decimal",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "recordedAt",
+          "displayName": "记录时间",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "notes",
+          "displayName": "备注",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "MaintenanceRecord",
+      "displayName": "维护记录",
+      "description": "刀具维护/修磨记录",
+      "primaryKey": "maintenanceId",
+      "properties": [
+        {
+          "apiName": "maintenanceId",
+          "displayName": "维护ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "toolId",
+          "displayName": "刀具ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "maintenanceType",
+          "displayName": "维护类型",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "枚举",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "description",
+          "displayName": "描述",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "cost",
+          "displayName": "成本",
+          "baseType": "decimal",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "performedAt",
+          "displayName": "执行时间",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "performedBy",
+          "displayName": "执行人",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "AGVTask",
+      "displayName": "AGV任务",
+      "description": "AGV自动配送任务",
+      "primaryKey": "taskId",
+      "properties": [
+        {
+          "apiName": "taskId",
+          "displayName": "任务ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "workOrderId",
+          "displayName": "工单ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "agvId",
+          "displayName": "AGV编号",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "fromLocation",
+          "displayName": "起始位置",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "toLocation",
+          "displayName": "目标位置",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "pending",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "priority",
+          "displayName": "优先级",
+          "baseType": "integer",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "createdAt",
+          "displayName": "创建时间",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "completedAt",
+          "displayName": "完成时间",
+          "baseType": "datetime",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [
+        {
+          "apiName": "AGVDeliversFor",
+          "linkType": "AGVDeliversFor"
+        }
+      ],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable",
+        "StatusTrackable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CheckoutRecord",
+      "displayName": "领用记录",
+      "description": "刀具领用记录",
+      "primaryKey": "checkoutId",
+      "properties": [
+        {
+          "apiName": "checkoutId",
+          "displayName": "领用ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "toolId",
+          "displayName": "刀具ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "workerId",
+          "displayName": "领用人",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "quantity",
+          "displayName": "数量",
+          "baseType": "decimal",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "checkoutTime",
+          "displayName": "领用时间",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "purpose",
+          "displayName": "用途",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "checked_out",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable",
+        "StatusTrackable",
+        "Quantifiable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ReturnRecord",
+      "displayName": "归还记录",
+      "description": "刀具归还记录",
+      "primaryKey": "returnId",
+      "properties": [
+        {
+          "apiName": "returnId",
+          "displayName": "归还ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "toolId",
+          "displayName": "刀具ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "workerId",
+          "displayName": "归还人",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "quantity",
+          "displayName": "数量",
+          "baseType": "decimal",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "returnTime",
+          "displayName": "归还时间",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "condition",
+          "displayName": "归还状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "notes",
+          "displayName": "备注",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable",
+        "StatusTrackable",
+        "Quantifiable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CostRecord",
+      "displayName": "成本记录",
+      "description": "刀具使用成本记录",
+      "primaryKey": "costId",
+      "properties": [
+        {
+          "apiName": "costId",
+          "displayName": "成本ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": true,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "toolId",
+          "displayName": "刀具ID",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "workOrderId",
+          "displayName": "工单ID",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "costType",
+          "displayName": "成本类型",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "amount",
+          "displayName": "金额",
+          "baseType": "decimal",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "currency",
+          "displayName": "货币",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "CNY",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "recordedAt",
+          "displayName": "记录时间",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "links": [],
+      "implementedInterfaces": [
+        "Identifiable",
+        "TimeTrackable",
+        "Quantifiable"
+      ],
+      "datasources": [],
+      "searchableProperties": [],
+      "editOnlyProperties": [],
+      "conditionalFormatting": ""
+    }
+  ],
+  "linkTypes": [
+    {
+      "ontologyRid": "",
+      "apiName": "ProductHasBom",
+      "displayName": "产品拥有BOM",
+      "description": "产品关联其物料清单",
+      "objectTypeA": "Product",
+      "objectTypeB": "Bom",
+      "cardinality": "ONE_TO_MANY",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "BomContainsMaterial",
+      "displayName": "BOM包含物料",
+      "description": "BOM包含的子物料及用量",
+      "objectTypeA": "Bom",
+      "objectTypeB": "Material",
+      "cardinality": "MANY_TO_MANY",
+      "namedLink": false,
+      "properties": [
+        {
+          "apiName": "quantity",
+          "displayName": "用量",
+          "baseType": "decimal",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "WorkOrderProduces",
+      "displayName": "工单生产产品",
+      "description": "工单生产的目标产品",
+      "objectTypeA": "WorkOrder",
+      "objectTypeB": "Product",
+      "cardinality": "MANY_TO_ONE",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "WorkOrderHasOperation",
+      "displayName": "工单包含工序",
+      "description": "工单包含的工序列表",
+      "objectTypeA": "WorkOrder",
+      "objectTypeB": "Operation",
+      "cardinality": "ONE_TO_MANY",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "OperationRunsOn",
+      "displayName": "工序运行于",
+      "description": "工序在哪个工作中心执行",
+      "objectTypeA": "Operation",
+      "objectTypeB": "WorkCenter",
+      "cardinality": "MANY_TO_ONE",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "OperationAssignedTo",
+      "displayName": "工序分配给",
+      "description": "工序分配给哪个工人",
+      "objectTypeA": "Operation",
+      "objectTypeB": "Worker",
+      "cardinality": "MANY_TO_ONE",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "OperationRequiresSkill",
+      "displayName": "工序需要技能",
+      "description": "工序执行所需的技能",
+      "objectTypeA": "Operation",
+      "objectTypeB": "Skill",
+      "cardinality": "MANY_TO_MANY",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "WorkerHasSkill",
+      "displayName": "人员拥有技能",
+      "description": "工人具备的技能",
+      "objectTypeA": "Worker",
+      "objectTypeB": "Skill",
+      "cardinality": "MANY_TO_MANY",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "WorkerBelongsToTeam",
+      "displayName": "人员属于班组",
+      "description": "工人所属班组",
+      "objectTypeA": "Worker",
+      "objectTypeB": "Team",
+      "cardinality": "MANY_TO_ONE",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ProductStoredAt",
+      "displayName": "产品存储于",
+      "description": "产品在哪些库位有库存",
+      "objectTypeA": "Product",
+      "objectTypeB": "WarehouseLocation",
+      "cardinality": "MANY_TO_MANY",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "InventoryRecordOfProduct",
+      "displayName": "库存记录对应产品",
+      "description": "库存记录对应的产品",
+      "objectTypeA": "InventoryRecord",
+      "objectTypeB": "Product",
+      "cardinality": "MANY_TO_ONE",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "InventoryRecordAtLocation",
+      "displayName": "库存记录位于库位",
+      "description": "库存记录所在的库位",
+      "objectTypeA": "InventoryRecord",
+      "objectTypeB": "WarehouseLocation",
+      "cardinality": "MANY_TO_ONE",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "SupplierProvidesProduct",
+      "displayName": "供应商提供产品",
+      "description": "供应商可供应的产品",
+      "objectTypeA": "Supplier",
+      "objectTypeB": "Product",
+      "cardinality": "MANY_TO_MANY",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "PurchaseOrderFromSupplier",
+      "displayName": "采购订单来自供应商",
+      "description": "采购订单的供应商",
+      "objectTypeA": "PurchaseOrder",
+      "objectTypeB": "Supplier",
+      "cardinality": "MANY_TO_ONE",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "SalesOrderForProduct",
+      "displayName": "销售订单包含产品",
+      "description": "销售订单的产品明细",
+      "objectTypeA": "SalesOrder",
+      "objectTypeB": "Product",
+      "cardinality": "MANY_TO_MANY",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "WorkOrderFollowsRoute",
+      "displayName": "工单遵循工艺路线",
+      "description": "工单遵循的工艺路线",
+      "objectTypeA": "WorkOrder",
+      "objectTypeB": "ProcessRoute",
+      "cardinality": "MANY_TO_ONE",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ScheduleAssignsWorkOrder",
+      "displayName": "排程分配工单",
+      "description": "排程分配给工单的资源时间",
+      "objectTypeA": "Schedule",
+      "objectTypeB": "WorkOrder",
+      "cardinality": "ONE_TO_MANY",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ToolForProduct",
+      "displayName": "刀具适用于产品",
+      "description": "刀具适用的产品类型",
+      "objectTypeA": "Tool",
+      "objectTypeB": "ToolCatalog",
+      "cardinality": "MANY_TO_MANY",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ToolInstalledAt",
+      "displayName": "刀具安装于设备",
+      "description": "刀具安装在哪个设备",
+      "objectTypeA": "Tool",
+      "objectTypeB": "WorkCenter",
+      "cardinality": "MANY_TO_ONE",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "AGVDeliversFor",
+      "displayName": "AGV配送服务于工单",
+      "description": "AGV配送任务服务的工单",
+      "objectTypeA": "AGVTask",
+      "objectTypeB": "WorkOrder",
+      "cardinality": "MANY_TO_ONE",
+      "namedLink": false,
+      "properties": [],
+      "required": true
+    }
+  ],
+  "actionTypes": [
+    {
+      "ontologyRid": "",
+      "apiName": "CreateWorkOrder",
+      "displayName": "创建工单",
+      "description": "创建工单并同步到 MES、APS、TMS",
+      "parameters": [
+        {
+          "id": "productId",
+          "displayName": "产品ID",
+          "baseType": "string",
+          "required": true
+        },
+        {
+          "id": "quantity",
+          "displayName": "数量",
+          "baseType": "decimal",
+          "required": true
+        },
+        {
+          "id": "priority",
+          "displayName": "优先级",
+          "baseType": "integer",
+          "required": false
+        }
+      ],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "WorkOrder",
+          "propertyUpdates": [],
+          "condition": "根据productId和quantity创建工单",
+          "errorMessage": ""
+        },
+        {
+          "editType": "CreateObject",
+          "objectType": "Operation",
+          "propertyUpdates": [],
+          "condition": "基于ProcessRoute展开工序",
+          "errorMessage": ""
+        },
+        {
+          "editType": "CreateObject",
+          "objectType": "Schedule",
+          "propertyUpdates": [],
+          "condition": "为工单分配排程",
+          "errorMessage": ""
+        },
+        {
+          "editType": "CreateObject",
+          "objectType": "ToolPreparationTask",
+          "propertyUpdates": [],
+          "condition": "根据工艺要求生成刀具准备任务",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [
+        {
+          "type": "Notification",
+          "channel": "in-app",
+          "template": "新工单待执行"
+        }
+      ],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "WorkOrder",
+        "Operation",
+        "Schedule"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ReportOperation",
+      "displayName": "工序报工",
+      "description": "MES报工，同步更新APS实际生产和TMS刀具寿命",
+      "parameters": [
+        {
+          "id": "operationId",
+          "displayName": "工序ID",
+          "baseType": "string",
+          "required": true
+        },
+        {
+          "id": "outputQty",
+          "displayName": "产出数量",
+          "baseType": "decimal",
+          "required": true
+        },
+        {
+          "id": "qualifiedQty",
+          "displayName": "合格数量",
+          "baseType": "decimal",
+          "required": true
+        }
+      ],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "OperationReport",
+          "propertyUpdates": [],
+          "condition": "记录工序实际产出",
+          "errorMessage": ""
+        },
+        {
+          "editType": "ModifyObject",
+          "objectType": "Operation",
+          "propertyUpdates": [
+            {
+              "property": "status",
+              "value": "completed"
+            }
+          ],
+          "condition": "标记工序为完工状态",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "OperationReport",
+        "Operation",
+        "ProductionLot"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "Inbound",
+      "displayName": "入库",
+      "description": "WMS入库，同步更新MES库存和APS物料可用性",
+      "parameters": [
+        {
+          "id": "productId",
+          "displayName": "产品ID",
+          "baseType": "string",
+          "required": true
+        },
+        {
+          "id": "locationId",
+          "displayName": "库位ID",
+          "baseType": "string",
+          "required": true
+        },
+        {
+          "id": "quantity",
+          "displayName": "数量",
+          "baseType": "decimal",
+          "required": true
+        }
+      ],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "StockMovement",
+          "propertyUpdates": [],
+          "condition": "记录入库移动",
+          "errorMessage": ""
+        },
+        {
+          "editType": "ModifyObject",
+          "objectType": "InventoryRecord",
+          "propertyUpdates": [
+            {
+              "property": "stockQuantity",
+              "value": "+{{quantity}}"
+            }
+          ],
+          "condition": "增加库存数量",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "StockMovement",
+        "InventoryRecord"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "Outbound",
+      "displayName": "出库",
+      "description": "出库/领用操作",
+      "parameters": [
+        {
+          "id": "productId",
+          "displayName": "产品ID",
+          "baseType": "string",
+          "required": true
+        },
+        {
+          "id": "quantity",
+          "displayName": "数量",
+          "baseType": "decimal",
+          "required": true
+        }
+      ],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "StockMovement",
+          "propertyUpdates": [],
+          "condition": "记录出库移动",
+          "errorMessage": ""
+        },
+        {
+          "editType": "ModifyObject",
+          "objectType": "InventoryRecord",
+          "propertyUpdates": [
+            {
+              "property": "stockQuantity",
+              "value": "-{{quantity}}"
+            }
+          ],
+          "condition": "库存数量必须大于等于出库数量",
+          "errorMessage": "库存不足"
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "StockMovement",
+        "InventoryRecord"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ScheduleProduction",
+      "displayName": "生产排程",
+      "description": "APS排程并触发TMS刀具准备",
+      "parameters": [
+        {
+          "id": "workOrderIds",
+          "displayName": "工单ID列表",
+          "baseType": "string",
+          "required": true
+        }
+      ],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "Schedule",
+          "propertyUpdates": [],
+          "condition": "生成排程计划",
+          "errorMessage": ""
+        },
+        {
+          "editType": "ModifyObject",
+          "objectType": "WorkOrder",
+          "propertyUpdates": [
+            {
+              "property": "status",
+              "value": "scheduled"
+            }
+          ],
+          "condition": "更新工单状态为已排程",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "Schedule",
+        "WorkOrder"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ReplaceTool",
+      "displayName": "刀具更换",
+      "description": "TMS刀具更换，更新MES工序状态",
+      "parameters": [
+        {
+          "id": "toolId",
+          "displayName": "刀具ID",
+          "baseType": "string",
+          "required": true
+        },
+        {
+          "id": "newToolId",
+          "displayName": "新刀具ID",
+          "baseType": "string",
+          "required": true
+        }
+      ],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "WearRecord",
+          "propertyUpdates": [],
+          "condition": "记录刀具磨损信息",
+          "errorMessage": ""
+        },
+        {
+          "editType": "ModifyObject",
+          "objectType": "Tool",
+          "propertyUpdates": [
+            {
+              "property": "status",
+              "value": "replaced"
+            }
+          ],
+          "condition": "更新刀具状态为已更换",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "WearRecord",
+        "Tool"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "QualityCheck",
+      "displayName": "质检",
+      "description": "质检结果处理",
+      "parameters": [
+        {
+          "id": "relatedOrderId",
+          "displayName": "关联工单ID",
+          "baseType": "string",
+          "required": true
+        },
+        {
+          "id": "result",
+          "displayName": "结果",
+          "baseType": "string",
+          "required": true
+        }
+      ],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "QualityRecord",
+          "propertyUpdates": [],
+          "condition": "记录质检结果",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "QualityRecord"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CreateMo",
+      "displayName": "创建工单",
+      "description": "MES内部：创建工单",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "WorkOrder",
+          "propertyUpdates": [],
+          "condition": "创建新工单",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "WorkOrder"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ValidateMo",
+      "displayName": "审核工单",
+      "description": "MES内部：审核工单",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "WorkOrder",
+          "propertyUpdates": [
+            {
+              "property": "status",
+              "value": "validated"
+            }
+          ],
+          "condition": "审核通过后更新状态",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "WorkOrder"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "StartMo",
+      "displayName": "开工",
+      "description": "MES内部：开工",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "WorkOrder",
+          "propertyUpdates": [
+            {
+              "property": "status",
+              "value": "in_progress"
+            }
+          ],
+          "condition": "工单开始生产",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "WorkOrder"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CompleteMo",
+      "displayName": "完工",
+      "description": "MES内部：完工",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "WorkOrder",
+          "propertyUpdates": [
+            {
+              "property": "status",
+              "value": "completed"
+            },
+            {
+              "property": "actualEndDate",
+              "value": "{{now}}"
+            }
+          ],
+          "condition": "工单生产完成",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "WorkOrder"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CancelMo",
+      "displayName": "取消工单",
+      "description": "MES内部：取消工单",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "WorkOrder",
+          "propertyUpdates": [
+            {
+              "property": "status",
+              "value": "cancelled"
+            }
+          ],
+          "condition": "取消工单",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "WorkOrder"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "StartOperation",
+      "displayName": "工序开工",
+      "description": "MES内部：工序开工",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "Operation",
+          "propertyUpdates": [
+            {
+              "property": "status",
+              "value": "in_progress"
+            }
+          ],
+          "condition": "工序开始执行",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "Operation"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CompleteOperation",
+      "displayName": "工序完工",
+      "description": "MES内部：工序完工",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "Operation",
+          "propertyUpdates": [
+            {
+              "property": "status",
+              "value": "completed"
+            },
+            {
+              "property": "actualEndTime",
+              "value": "{{now}}"
+            }
+          ],
+          "condition": "工序执行完成",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "Operation"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CreateOperationReport",
+      "displayName": "创建报工单",
+      "description": "MES内部：创建报工单",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "OperationReport",
+          "propertyUpdates": [],
+          "condition": "创建工序报工记录",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "OperationReport"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "RecordMaterialConsumption",
+      "displayName": "记录物料消耗",
+      "description": "MES内部：记录物料消耗",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "MaterialConsumption",
+          "propertyUpdates": [],
+          "condition": "记录生产过程中的物料消耗",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "MaterialConsumption"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CreateStockMovement",
+      "displayName": "创建库存移动",
+      "description": "MES内部：创建库存移动",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "StockMovement",
+          "propertyUpdates": [],
+          "condition": "创建库存移动记录",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "StockMovement"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CreatePurchaseOrder",
+      "displayName": "创建采购订单",
+      "description": "WMS内部：创建采购订单",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "PurchaseOrder",
+          "propertyUpdates": [],
+          "condition": "创建新采购订单",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "PurchaseOrder"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ApprovePurchaseOrder",
+      "displayName": "审批采购订单",
+      "description": "WMS内部：审批采购订单",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "PurchaseOrder",
+          "propertyUpdates": [
+            {
+              "property": "status",
+              "value": "approved"
+            }
+          ],
+          "condition": "审批通过后更新状态",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "PurchaseOrder"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CreateSalesOrder",
+      "displayName": "创建销售订单",
+      "description": "WMS内部：创建销售订单",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "SalesOrder",
+          "propertyUpdates": [],
+          "condition": "创建新销售订单",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "SalesOrder"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ApproveSalesOrder",
+      "displayName": "审批销售订单",
+      "description": "WMS内部：审批销售订单",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "SalesOrder",
+          "propertyUpdates": [
+            {
+              "property": "status",
+              "value": "approved"
+            }
+          ],
+          "condition": "审批通过后更新状态",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "SalesOrder"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CreateStockItem",
+      "displayName": "创建库存项",
+      "description": "WMS内部：创建库存项",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "InventoryRecord",
+          "propertyUpdates": [],
+          "condition": "创建新库存记录",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "InventoryRecord"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "InventoryCount",
+      "displayName": "库存盘点",
+      "description": "WMS内部：库存盘点",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "InventoryRecord",
+          "propertyUpdates": [
+            {
+              "property": "stockQuantity",
+              "value": "{{countedQuantity}}"
+            }
+          ],
+          "condition": "更新实际盘点数量",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "InventoryRecord"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CreateBuild",
+      "displayName": "创建装配单",
+      "description": "WMS内部：创建装配单",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "Bom",
+          "propertyUpdates": [],
+          "condition": "创建装配物料清单",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "TransferStock",
+      "displayName": "库存调拨",
+      "description": "WMS内部：库存调拨",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "InventoryRecord",
+          "propertyUpdates": [
+            {
+              "property": "locationId",
+              "value": "{{targetLocation}}"
+            }
+          ],
+          "condition": "更新库位信息",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "InventoryRecord"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CreateProductionOrder",
+      "displayName": "创建生产订单",
+      "description": "APS内部：创建生产订单",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "WorkOrder",
+          "propertyUpdates": [],
+          "condition": "APS创建生产订单",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "WorkOrder"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "SelectProcessRoute",
+      "displayName": "选择工艺路线",
+      "description": "APS内部：选择工艺路线",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "WorkOrder",
+          "propertyUpdates": [
+            {
+              "property": "processRouteId",
+              "value": "{{selectedRouteId}}"
+            }
+          ],
+          "condition": "为工单分配工艺路线",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "WorkOrder"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CalculateSchedule",
+      "displayName": "计算排程",
+      "description": "APS内部：计算排程",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "Schedule",
+          "propertyUpdates": [],
+          "condition": "运行排程算法生成计划",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "Schedule"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "AssignResource",
+      "displayName": "分配资源",
+      "description": "APS内部：分配资源",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "Schedule",
+          "propertyUpdates": [
+            {
+              "property": "assignedResourceId",
+              "value": "{{resourceId}}"
+            }
+          ],
+          "condition": "为排程分配设备/人员资源",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "Schedule"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "UpdateActualProduction",
+      "displayName": "更新实际生产",
+      "description": "APS内部：更新实际生产",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "ProductionLot",
+          "propertyUpdates": [
+            {
+              "property": "actualQuantity",
+              "value": "{{actualQty}}"
+            }
+          ],
+          "condition": "更新生产批次实际产量",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "ProductionLot"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CreateDefectRecord",
+      "displayName": "创建缺陷记录",
+      "description": "APS内部：创建缺陷记录",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "QualityRecord",
+          "propertyUpdates": [],
+          "condition": "记录生产缺陷信息",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "QualityRecord"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CreateQCInspection",
+      "displayName": "创建质检记录",
+      "description": "APS内部：创建质检记录",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "QualityRecord",
+          "propertyUpdates": [],
+          "condition": "创建质量检验记录",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "QualityRecord"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "AdjustResourceCalendar",
+      "displayName": "调整资源日历",
+      "description": "APS内部：调整资源日历",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "ResourceCalendar",
+          "propertyUpdates": [
+            {
+              "property": "availableHours",
+              "value": "{{newHours}}"
+            }
+          ],
+          "condition": "调整资源可用时间",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "ResourceCalendar"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CheckoutTool",
+      "displayName": "刀具领用",
+      "description": "TMS内部：刀具领用",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "Tool",
+          "propertyUpdates": [
+            {
+              "property": "status",
+              "value": "checked_out"
+            }
+          ],
+          "condition": "更新刀具状态为已领用",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "Tool"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "InstallTool",
+      "displayName": "刀具装机",
+      "description": "TMS内部：刀具装机",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "Tool",
+          "propertyUpdates": [
+            {
+              "property": "status",
+              "value": "installed"
+            },
+            {
+              "property": "workCenterId",
+              "value": "{{targetWorkCenter}}"
+            }
+          ],
+          "condition": "更新刀具装机位置",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "Tool"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "InspectTool",
+      "displayName": "刀具质检",
+      "description": "TMS内部：刀具质检",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "Tool",
+          "propertyUpdates": [
+            {
+              "property": "lastInspectionDate",
+              "value": "{{now}}"
+            }
+          ],
+          "condition": "更新最近质检日期",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "Tool"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "RecordToolWear",
+      "displayName": "记录刀具磨损",
+      "description": "TMS内部：记录刀具磨损",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "WearRecord",
+          "propertyUpdates": [],
+          "condition": "创建磨损记录",
+          "errorMessage": ""
+        },
+        {
+          "editType": "ModifyObject",
+          "objectType": "Tool",
+          "propertyUpdates": [
+            {
+              "property": "wearLevel",
+              "value": "{{newWearLevel}}"
+            }
+          ],
+          "condition": "更新刀具磨损程度",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "Tool"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ReturnTool",
+      "displayName": "刀具归还",
+      "description": "TMS内部：刀具归还",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "Tool",
+          "propertyUpdates": [
+            {
+              "property": "status",
+              "value": "available"
+            }
+          ],
+          "condition": "更新刀具状态为可用",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "Tool"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "MaintainTool",
+      "displayName": "刀具维护",
+      "description": "TMS内部：刀具维护",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "MaintenanceRecord",
+          "propertyUpdates": [],
+          "condition": "创建维护记录",
+          "errorMessage": ""
+        },
+        {
+          "editType": "ModifyObject",
+          "objectType": "Tool",
+          "propertyUpdates": [
+            {
+              "property": "status",
+              "value": "maintained"
+            },
+            {
+              "property": "lastMaintenanceDate",
+              "value": "{{now}}"
+            }
+          ],
+          "condition": "更新刀具维护状态",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "Tool"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "ScrapTool",
+      "displayName": "刀具报废",
+      "description": "TMS内部：刀具报废",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "ModifyObject",
+          "objectType": "Tool",
+          "propertyUpdates": [
+            {
+              "property": "status",
+              "value": "scrapped"
+            }
+          ],
+          "condition": "更新刀具状态为报废",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "Tool"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "DispatchAGV",
+      "displayName": "AGV配送",
+      "description": "TMS内部：AGV配送刀具",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "AGVTask",
+          "propertyUpdates": [],
+          "condition": "创建AGV配送任务",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "AGVTask"
+      ],
+      "isBatch": false
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "CalculateToolCost",
+      "displayName": "刀具成本核算",
+      "description": "TMS内部：刀具成本核算",
+      "parameters": [],
+      "edits": [
+        {
+          "editType": "CreateObject",
+          "objectType": "CostRecord",
+          "propertyUpdates": [],
+          "condition": "计算并记录刀具使用成本",
+          "errorMessage": ""
+        }
+      ],
+      "sideEffects": [],
+      "submissionCriteria": [],
+      "submissionConfiguration": {
+        "requiresConfirmation": false,
+        "approvalFlow": null
+      },
+      "editedObjectTypes": [
+        "CostRecord"
+      ],
+      "isBatch": false
+    }
+  ],
+  "interfaces": [
+    {
+      "ontologyRid": "",
+      "apiName": "Identifiable",
+      "displayName": "可标识",
+      "description": "任何需要唯一追溯的实体",
+      "properties": [
+        {
+          "apiName": "uid",
+          "displayName": "统一编码",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "entityCode",
+          "displayName": "业务编码",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "implementingObjectTypes": [
+        "Product",
+        "Material",
+        "ToolCatalog",
+        "WorkOrder",
+        "Operation",
+        "WorkCenter",
+        "Worker",
+        "InventoryRecord",
+        "WarehouseLocation",
+        "Supplier",
+        "Bom",
+        "QualityRecord"
+      ]
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "TimeTrackable",
+      "displayName": "可时间追溯",
+      "description": "需要时间戳追溯的实体",
+      "properties": [
+        {
+          "apiName": "createdAt",
+          "displayName": "创建时间",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "updatedAt",
+          "displayName": "更新时间",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "createdBy",
+          "displayName": "创建人",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "updatedBy",
+          "displayName": "更新人",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "implementingObjectTypes": [
+        "WorkOrder",
+        "Operation",
+        "PurchaseOrder",
+        "SalesOrder",
+        "Bom",
+        "QualityRecord",
+        "Schedule",
+        "ProductionLot",
+        "Tool",
+        "AGVTask"
+      ]
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "Locatable",
+      "displayName": "可定位",
+      "description": "具有空间位置的实体",
+      "properties": [
+        {
+          "apiName": "locationCode",
+          "displayName": "位置编码",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "area",
+          "displayName": "所属区域",
+          "baseType": "string",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "implementingObjectTypes": [
+        "WorkCenter",
+        "WarehouseLocation",
+        "Tool"
+      ]
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "StatusTrackable",
+      "displayName": "可状态追踪",
+      "description": "有状态流转的实体",
+      "properties": [
+        {
+          "apiName": "status",
+          "displayName": "状态",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "statusUpdatedAt",
+          "displayName": "状态更新时间",
+          "baseType": "datetime",
+          "required": false,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "implementingObjectTypes": [
+        "WorkOrder",
+        "Operation",
+        "InventoryRecord",
+        "Tool",
+        "Schedule",
+        "PurchaseOrder",
+        "SalesOrder",
+        "ProductionLot",
+        "AGVTask"
+      ]
+    },
+    {
+      "ontologyRid": "",
+      "apiName": "Quantifiable",
+      "displayName": "可量化",
+      "description": "涉及数量度量的实体",
+      "properties": [
+        {
+          "apiName": "quantity",
+          "displayName": "数量",
+          "baseType": "decimal",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "unit",
+          "displayName": "单位",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "implementingObjectTypes": [
+        "Product",
+        "InventoryRecord",
+        "WorkOrder",
+        "OperationReport",
+        "MaterialConsumption",
+        "ProductionLot"
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "ontologyRid": "",
+      "apiName": "CalculateToolCost",
+      "displayName": "计算刀具成本",
+      "description": "根据刀具使用时间和磨损计算成本",
+      "inputParameters": [
+        {
+          "id": "toolId",
+          "displayName": "刀具ID",
+          "baseType": "string",
+          "required": true
+        },
+        {
+          "id": "usageTime",
+          "displayName": "使用时间",
+          "baseType": "decimal",
+          "required": true
+        }
+      ],
+      "outputType": "decimal",
+      "implementationType": "builtin",
+      "implementationRef": "",
+      "isPure": true
+    }
+  ],
+  "sharedProperties": [
+    {
+      "ontologyRid": "",
+      "apiName": "AuditFields",
+      "displayName": "审计字段",
+      "properties": [
+        {
+          "apiName": "createdAt",
+          "displayName": "创建时间",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "updatedAt",
+          "displayName": "更新时间",
+          "baseType": "datetime",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "createdBy",
+          "displayName": "创建人",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        },
+        {
+          "apiName": "updatedBy",
+          "displayName": "更新人",
+          "baseType": "string",
+          "required": true,
+          "isPrimaryKey": false,
+          "defaultValue": "",
+          "valueType": "",
+          "datasourceRid": "",
+          "column": "",
+          "fromInterface": "",
+          "description": ""
+        }
+      ],
+      "referencedBy": [
+        "WorkOrder",
+        "Operation",
+        "PurchaseOrder",
+        "SalesOrder",
+        "Schedule",
+        "ProductionLot",
+        "Tool",
+        "AGVTask"
+      ]
+    }
+  ],
+  "designNotes": {
+    "objectTypeCount": 36,
+    "linkTypeCount": 20,
+    "actionTypeCount": 42,
+    "interfaceCount": 5,
+    "functionCount": 1,
+    "sharedPropertyCount": 1,
+    "coreObjectTypes": [
+      "Product",
+      "Material",
+      "ToolCatalog",
+      "WorkOrder",
+      "Operation",
+      "WorkCenter",
+      "Worker",
+      "InventoryRecord",
+      "WarehouseLocation",
+      "Supplier",
+      "Bom",
+      "QualityRecord"
+    ],
+    "reasoning": "Product/Material/ToolCatalog 分离设计，避免业务语义混淆；WorkOrder 统一工单语义；InventoryRecord 作为关联型实体支持多库位多批次；Action 覆盖跨系统协同和各系统内部流程"
+  }
+}

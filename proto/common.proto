@@ -1,0 +1,40 @@
+syntax = "proto3";
+package avic.lingshu.proto;
+
+// ==========================================
+// 1. 物理数据类型
+// ==========================================
+enum DataType {
+    DT_UNKNOWN = 0;
+    DT_STRING = 1;
+    DT_INTEGER = 2; // Int32/Int64
+    DT_DOUBLE = 3;  // Float64
+    DT_BOOLEAN = 4;
+    DT_TIMESTAMP = 5;
+    DT_DATE = 6;
+    DT_ATTACHMENT = 7; 
+}
+
+// ==========================================
+// 2. 资产映射 (Asset Mapping)
+// ==========================================
+// 定义 Object/Link 到底层物理资源的映射关系
+message AssetMapping {
+    // --- 读路径 (Read Path) ---
+    // 1. 基础设施连接 ID (指向 Admin 配置，获取 Host/User/Pwd)
+    string read_connection_id = 1;
+
+    // 2. 资产路径 (指向具体表/视图)
+    // e.g. "clean_layer.db_robot.t_robot_snapshot"
+    string read_asset_path = 2;
+
+    // --- 写路径 (Write Path / Writeback) ---
+    bool writeback_enabled = 3;
+    
+    // 如果启用回写，写入目标的连接 ID
+    string writeback_connection_id = 4; 
+    
+    // 增量表/编辑日志的路径
+    // e.g. "sys_layer.edits.t_robot_delta"
+    string writeback_asset_path = 5;
+}

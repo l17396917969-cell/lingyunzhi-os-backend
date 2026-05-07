@@ -1,0 +1,78 @@
+syntax = "proto3";
+package avic.lingshu.proto;
+
+// ==========================================
+// 1. 属性级校验（用于 PropertyType / SharedPropertyType）
+// ==========================================
+// 校验单个属性值是否合法
+message PropertyValidationConfig {
+    repeated PropertyValidationRule rules = 1;  // 多条规则之间为 AND 关系
+}
+
+message PropertyValidationRule {
+    string error_message = 1;  // 校验失败时的提示文本
+
+    oneof rule {
+        NotNullRule not_null = 2;
+        RangeRule range = 3;
+        LengthRule length = 4;
+        PatternRule pattern = 5;
+        EnumRule enum_values = 6;
+    }
+}
+
+// 非空校验
+message NotNullRule {}
+
+// 数值范围校验（适用于 INTEGER / DOUBLE）
+message RangeRule {
+    optional double min = 1;
+    optional double max = 2;
+    bool min_inclusive = 3;  // 默认 true
+    bool max_inclusive = 4;  // 默认 true
+}
+
+// 字符串长度校验（适用于 STRING）
+message LengthRule {
+    optional int32 min_length = 1;
+    optional int32 max_length = 2;
+}
+
+// 正则表达式校验（适用于 STRING）
+message PatternRule {
+    string regex = 1;
+}
+
+// 枚举值校验（适用于 STRING / INTEGER）
+message EnumRule {
+    repeated EnumValue allowed_values = 1;
+}
+
+message EnumValue {
+    string value = 1;           // 存储值
+    string display_name = 2;    // 显示名称
+}
+
+// ==========================================
+// 2. 实体级校验（用于 ObjectType / LinkType）
+// ==========================================
+// 校验实体内多个属性之间的约束关系
+message EntityValidationConfig {
+    repeated EntityValidationRule rules = 1;  // 多条规则之间为 AND 关系
+}
+
+message EntityValidationRule {
+    string error_message = 1;  // 校验失败时的提示文本
+
+    oneof rule {
+        CrossPropertyExpression cross_property = 2;
+    }
+}
+
+// 跨属性表达式校验
+// 引用属性使用 {api_name} 语法
+// 示例: "{end_time} > {start_time}"
+// 示例: "{max_speed} >= {min_speed}"
+message CrossPropertyExpression {
+    string expression = 1;
+}

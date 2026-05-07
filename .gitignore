@@ -1,0 +1,90 @@
+# macOS
+.DS_Store
+
+# Git worktrees (isolated workspaces for in-flight implementation)
+.worktrees/
+
+# Local Claude Code settings (machine-specific permissions)
+.claude/settings.local.json
+
+# Large media artifacts (excluded from the repo by default;
+# remove these lines if you want them tracked, e.g. via Git LFS)
+audio_narration.mp3
+ontology-intro.zip
+
+# Python (for upcoming onto_platform/ implementation)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual envs and local secret material
+.env
+.env.*
+!.env.example
+.venv
+env/
+venv/
+ENV/
+
+# Tooling
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+
+# IDE
+.idea/
+.vscode/
+
+# Alembic versions placeholder
+# (none yet; alembic versions will be tracked when the implementation lands)
+
+# Superpowers brainstorm session artifacts (per-session, ephemeral)
+.superpowers/
+
+# Playwright e2e
+ui/test-results/
+ui/playwright-report/
+ui/node_modules/
+
+# Scheduled task lockfile
+.claude/scheduled_tasks.lock
+# Generated SQL files
+*.sql.bak
+*.sqlite3-shm
+*.sqlite3-wal
+*.bak.*
+*.bak$
+# Logs
+*.log
+/tmp/
+# Docker
+docker-compose.override.yml
+# Secrets
+*.pem
+*.key
+credentials.json
+secrets.json

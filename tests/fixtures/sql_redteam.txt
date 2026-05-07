@@ -1,0 +1,23 @@
+# tests/fixtures/sql_redteam.txt
+# Each line is a known-bad SQL statement. Comments (#) and blanks are skipped.
+DROP TABLE users;
+TRUNCATE TABLE users;
+DELETE FROM users;
+INSERT INTO users (a) VALUES (1);
+UPDATE users SET a = 2;
+ALTER TABLE users ADD COLUMN x INT;
+CREATE TABLE foo(x INT);
+SELECT 1; DROP TABLE users;
+SELECT 1; -- harmless
+SELECT a FROM b; INSERT INTO b VALUES (1);
+WITH d AS (DELETE FROM users RETURNING id) SELECT id FROM d;
+SELECT * FROM users; CREATE INDEX i ON users(id);
+GRANT ALL ON users TO PUBLIC;
+REVOKE SELECT ON users FROM PUBLIC;
+COPY users FROM '/etc/passwd';
+LOAD DATA INFILE '/etc/passwd' INTO TABLE users;
+SET ROLE postgres;
+LOCK TABLE users;
+RENAME TABLE users TO usrs;
+CALL maintenance_proc();
+MERGE INTO users USING staged ON 1=1 WHEN MATCHED THEN UPDATE SET a = staged.a;

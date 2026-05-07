@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "onto-platform"
+version = "0.1.0"
+description = "Ontology Platform — backbone server (sub-project 1)"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "mcp>=1.2",
+    "sqlalchemy[asyncio]>=2.0.36",
+    "asyncpg>=0.30",
+    "alembic>=1.14",
+    "pydantic>=2.9",
+    "pydantic-settings>=2.6",
+    "argon2-cffi>=23.1",
+    "cryptography>=43.0",
+    "aiomysql>=0.2",
+    "sqlglot>=25.30",
+    "structlog>=24.4",
+    "httpx>=0.28",
+    "litellm>=1.50",
+    "pypdf>=5.0",
+    "python-docx>=1.1",
+    "python-pptx>=1.0",
+    "openpyxl>=3.1",
+    "aiofiles>=24.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "pytest-cov>=6.0",
+    "testcontainers[postgres,mysql]>=4.8",
+    "hypothesis>=6.115",
+    "ruff>=0.7",
+    "mypy>=1.13",
+    "reportlab>=4.4.10",
+    "types-aiofiles>=25.1.0.20260409",
+    "types-openpyxl>=3.1.5.20260408",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["onto_platform*"]
+exclude = ["proto*", "tests*"]
+
+[tool.uv]
+package = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+markers = [
+    "live_llm: tests that hit a real LLM provider; require RUN_LIVE_LLM_TESTS=1",
+    "e2e: end-to-end tests using testcontainers",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N", "RUF"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]

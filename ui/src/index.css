@@ -1,0 +1,199 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+    --font-sans: "IBM Plex Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", "Menlo", "Consolas", "Source Han Mono", monospace;
+
+    /* Warm-tinted dark surfaces */
+    --surface-0: #09090b;          /* zinc-950 */
+    --surface-1: #0d0d10;          /* slight warm shift */
+    --surface-2: #131316;
+    --hairline: rgba(244, 244, 245, 0.06);
+    --hairline-strong: rgba(244, 244, 245, 0.10);
+
+    /* Accent: cyan, the "staging" signal color */
+    --accent: #22d3ee;
+    --accent-soft: rgba(34, 211, 238, 0.14);
+    --accent-glow: rgba(34, 211, 238, 0.35);
+
+    /* Status palette */
+    --ok: #34d399;
+    --warn: #fbbf24;
+    --err: #f87171;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11", "tnum";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: var(--surface-0);
+    color: #e4e4e7;
+    /* very subtle vignette so flat panels feel like they sit on a surface */
+    background-image:
+      radial-gradient(ellipse 60vw 50vh at 0% 0%, rgba(34, 211, 238, 0.025), transparent 60%),
+      radial-gradient(ellipse 50vw 40vh at 100% 100%, rgba(251, 191, 36, 0.018), transparent 60%);
+  }
+
+  /* Tabular numbers everywhere for IDs, counts, timestamps */
+  .tnum, code, pre, .font-mono {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Hairline scrollbars */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(244, 244, 245, 0.06); border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(244, 244, 245, 0.12); }
+
+  /* Selection: cyan */
+  ::selection { background: rgba(34, 211, 238, 0.25); color: #f4f4f5; }
+
+  /* Editorial display class — for brand mark, page titles, panel labels */
+  .font-display { font-family: var(--font-display); letter-spacing: -0.01em; }
+  .font-mono { font-family: var(--font-mono); }
+}
+
+@layer components {
+  /* ── Panel: a bordered surface with a subtle inner bezel ─────────── */
+  .panel {
+    background: var(--surface-1);
+    border: 1px solid var(--hairline);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.4);
+  }
+
+  /* ── Hairline divider (horizontal) ────────────────────────────────── */
+  .hairline { border-color: var(--hairline); }
+  .hairline-strong { border-color: var(--hairline-strong); }
+
+  /* ── Section label: "01 · 对话" ───────────────────────────────────── */
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(228, 228, 231, 0.55);
+  }
+  .section-num {
+    color: rgba(34, 211, 238, 0.7);
+  }
+
+  /* ── Panel title: serif, generous tracking ───────────────────────── */
+  .panel-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: #e4e4e7;
+  }
+
+  /* ── Corner tick decoration (instrument bezel) ───────────────────── */
+  .corner-ticks::before,
+  .corner-ticks::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-color: rgba(244, 244, 245, 0.18);
+    border-style: solid;
+    border-width: 0;
+  }
+  .corner-ticks::before {
+    top: -1px; left: -1px;
+    border-top-width: 1px; border-left-width: 1px;
+  }
+  .corner-ticks::after {
+    bottom: -1px; right: -1px;
+    border-bottom-width: 1px; border-right-width: 1px;
+  }
+
+  /* ── Status pip (filled circle) ───────────────────────────────────── */
+  .pip {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    flex-shrink: 0;
+  }
+  .pip-ok { background: var(--ok); box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.15); }
+  .pip-warn { background: var(--warn); box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.15); }
+  .pip-err { background: var(--err); box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.15); }
+  .pip-idle { background: rgba(244, 244, 245, 0.25); }
+
+  /* ── Breathing pulse for "处理中" indicators ─────────────────────── */
+  .pulse-soft {
+    animation: pulse-soft 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(0.92); }
+  }
+
+  /* ── Bubble entrance ─────────────────────────────────────────────── */
+  .bubble-in {
+    animation: bubble-in 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  @keyframes bubble-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Tool-call pill: vertical accent bar + body ─────────────────── */
+  .pill-meter {
+    position: relative;
+    padding-left: 10px;
+    transition: background 150ms;
+  }
+  .pill-meter::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    border-radius: 1px;
+  }
+  .pill-meter-ok::before { background: var(--ok); }
+  .pill-meter-warn::before { background: var(--warn); box-shadow: 0 0 6px rgba(251, 191, 36, 0.5); }
+  .pill-meter-err::before { background: var(--err); }
+
+  /* ── Drop zone hover state ───────────────────────────────────────── */
+  .drop-active {
+    box-shadow: inset 0 0 0 1px var(--accent), inset 0 0 24px rgba(34, 211, 238, 0.08);
+  }
+
+  /* ── Token chip: monospace, subtle background ─────────────────────── */
+  .chip-mono {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    background: rgba(244, 244, 245, 0.04);
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    padding: 1px 6px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Active nav edge bar (instead of bg fill) ────────────────────── */
+  .nav-active-bar {
+    position: relative;
+  }
+  .nav-active-bar::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 6px; bottom: 6px;
+    width: 2px;
+    background: var(--accent);
+    border-radius: 1px;
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
+
+  /* Buttons get consistent transition */
+  button { transition: background-color 150ms, color 150ms, border-color 150ms, opacity 150ms; }
+}

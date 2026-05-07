@@ -1,0 +1,30 @@
+syntax = "proto3";
+package avic.lingshu.proto;
+
+// ==========================================
+// 1. 强类型 UI 组件
+// ==========================================
+message WidgetConfig {
+    oneof config {
+        WidgetText text = 1;
+        WidgetLink link = 2;
+        WidgetAvatar avatar = 3;
+        WidgetStatus status = 4;
+        WidgetMapPin map_pin = 5;
+        WidgetCode code = 6;
+        WidgetImage image = 7;
+        WidgetDate date = 8;
+        WidgetUserSelector user_selector = 9;
+    }
+}
+
+// --- 组件详情 ---
+message WidgetText { bool multiline = 1; string placeholder = 2; }
+message WidgetLink { string protocol_prefix = 1; bool new_tab = 2; }
+message WidgetAvatar { bool show_label = 1; }
+message WidgetStatus { map<string, string> color_map = 1; }
+message WidgetMapPin { string icon_name = 1; string color = 2; }
+message WidgetCode { string language = 1; bool read_only = 2; }
+message WidgetImage { bool enable_preview = 1; string aspect_ratio = 2; }
+message WidgetDate { string format = 1; bool include_time = 2; }
+message WidgetUserSelector { bool allow_multiple = 1; repeated string role_filter = 2; }

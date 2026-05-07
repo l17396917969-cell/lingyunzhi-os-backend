@@ -1,0 +1,77 @@
+{
+  "version": "logistics-fixture-1",
+  "shared_property_types": {
+    "ri.shprop.aaaaaaaa-aaaa-aaaa-aaaa-000000000001": {
+      "rid": "ri.shprop.aaaaaaaa-aaaa-aaaa-aaaa-000000000001",
+      "api_name": "code",
+      "display_name": "Code",
+      "lifecycle_status": "ACTIVE",
+      "data_type": "DT_STRING"
+    },
+    "ri.shprop.aaaaaaaa-aaaa-aaaa-aaaa-000000000002": {
+      "rid": "ri.shprop.aaaaaaaa-aaaa-aaaa-aaaa-000000000002",
+      "api_name": "name",
+      "display_name": "Name",
+      "lifecycle_status": "ACTIVE",
+      "data_type": "DT_STRING"
+    },
+    "ri.shprop.aaaaaaaa-aaaa-aaaa-aaaa-000000000003": {
+      "rid": "ri.shprop.aaaaaaaa-aaaa-aaaa-aaaa-000000000003",
+      "api_name": "plan_price",
+      "display_name": "Plan Price",
+      "lifecycle_status": "ACTIVE",
+      "data_type": "DT_DOUBLE",
+      "compliance": {"sensitivity": "CONFIDENTIAL", "masking": "MASK_REDACT_FULL"}
+    }
+  },
+  "interface_types": {
+    "ri.iface.aaaaaaaa-aaaa-aaaa-aaaa-000000000001": {
+      "rid": "ri.iface.aaaaaaaa-aaaa-aaaa-aaaa-000000000001",
+      "api_name": "trackable",
+      "display_name": "Trackable",
+      "lifecycle_status": "ACTIVE",
+      "category": "OBJECT_INTERFACE",
+      "required_shared_property_type_rids": [
+        "ri.shprop.aaaaaaaa-aaaa-aaaa-aaaa-000000000001"
+      ]
+    }
+  },
+  "object_types": {
+    "ri.obj.aaaaaaaa-aaaa-aaaa-aaaa-000000000001": {
+      "rid": "ri.obj.aaaaaaaa-aaaa-aaaa-aaaa-000000000001",
+      "api_name": "material",
+      "display_name": "Material",
+      "lifecycle_status": "ACTIVE",
+      "implements_interface_type_rids": [
+        "ri.iface.aaaaaaaa-aaaa-aaaa-aaaa-000000000001"
+      ],
+      "property_types": {
+        "ri.prop.aaaaaaaa-aaaa-aaaa-aaaa-000000000011": {
+          "rid": "ri.prop.aaaaaaaa-aaaa-aaaa-aaaa-000000000011",
+          "api_name": "code", "data_type": "DT_STRING",
+          "physical_column": "MATERIAL_CODE"
+        },
+        "ri.prop.aaaaaaaa-aaaa-aaaa-aaaa-000000000012": {
+          "rid": "ri.prop.aaaaaaaa-aaaa-aaaa-aaaa-000000000012",
+          "api_name": "name", "data_type": "DT_STRING",
+          "physical_column": "MATERIAL_NAME"
+        },
+        "ri.prop.aaaaaaaa-aaaa-aaaa-aaaa-000000000013": {
+          "rid": "ri.prop.aaaaaaaa-aaaa-aaaa-aaaa-000000000013",
+          "api_name": "plan_price", "data_type": "DT_DOUBLE",
+          "physical_column": "PLAN_PRICE",
+          "compliance": {"sensitivity": "CONFIDENTIAL", "masking": "MASK_REDACT_FULL"}
+        }
+      },
+      "primary_key_property_type_rids": [
+        "ri.prop.aaaaaaaa-aaaa-aaaa-aaaa-000000000011"
+      ],
+      "asset_mapping": {
+        "read_connection_id": "__FILLED_AT_TEST_TIME__",
+        "read_asset_path": "MD_MATERIAL"
+      }
+    }
+  },
+  "link_types": {},
+  "action_types": {}
+}
