@@ -12,6 +12,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Network test
+        run: |
+          echo "=== Network diagnostics ==="
+          nc -zv -w 10 43.142.255.191 22 || true
+          ping -c 3 43.142.255.191 || true
+          curl -s --connect-timeout 10 http://43.142.255.191/ || true
+          echo "=== End diagnostics ==="
+        shell: bash
+
       - name: Deploy to server
         run: |
           mkdir -p ~/.ssh
