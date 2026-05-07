@@ -12,6 +12,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Debug SSH key
+        run: |
+          echo "Key length: $(echo '${{ secrets.SERVER_SSH_KEY }}' | wc -c)"
+          echo "Expected: 1674"
+          echo '${{ secrets.SERVER_SSH_KEY }}' | head -n 1
+          echo '${{ secrets.SERVER_SSH_KEY }}' | tail -n 1
+        shell: bash
+
       - name: Deploy to server
         uses: appleboy/ssh-action@v1.2.0
         with:
